@@ -1,0 +1,3424 @@
+<ng-container>
+  <div class="outer-box">
+    <!-- {{currentTemplate}} -->
+    <div class="inner-box">
+      <div class="assessment">
+        <div class="flex row">
+          <!-- Table Data -->
+          <!-- Category wise Portion (Uppper Portion)-->
+          <div class="width-80 col">
+            <!-- For Individual Template -->
+            <ng-container *ngIf="currentTemplate === '1'">
+              <!-- Table Static Portion in Individualized -->
+              <div class="list">
+                <div class="_header columns4">
+                  <div class="flex">
+                    <div class="column">Name</div>
+                    <div class="column">Program Goals</div>
+                    <div class="column">Assessment Results</div>
+                    <div class="column">Coaches Notes:</div>
+                  </div>
+                </div>
+                <div class="_body columns4">
+                  <div class="flex">
+                    <div class="column"></div>
+                    <div class="column">Build Strength</div>
+                    <div class="column"></div>
+                    <div class="column"></div>
+                  </div>
+                  <div class="flex">
+                    <div class="column"></div>
+                    <div class="column">Rebuild Some Athleticism</div>
+                    <div class="column"></div>
+                    <div class="column"></div>
+                  </div>
+                  <div class="flex">
+                    <div class="column"></div>
+                    <div class="column">Efficient Training Days</div>
+                    <div class="column"></div>
+                    <div class="column"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- For R1 in Individualized -->
+              <div class="list">
+                <div class="flex nowrap">
+                  <div class="serial pxwidth-50    ">
+                    <div class="bg-white">R1 </div>
+                  </div>
+                  <div class="full-width">
+                    <div class="_header columns4">
+                      <div class="flex">
+                        <div class="column">Foam Rollar/Ball</div>
+                        <div class="column">Frequency</div>
+                        <div class="column">Time</div>
+                        <div class="column">Comments</div>
+                      </div>
+                    </div>
+                    <div class="_body columns4" *ngFor="let item of programChartDetails?.first_portion?.R1">
+                      <div class="flex">
+                        <div class="column">
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                            <div class="form-input w-100">
+                              <div class="has-addon">
+                                <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                  value="{{setExcerciseValue(item)}}">
+                                <!-- value="{{item?.subcategory?.name}}" -->
+                                <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                </mat-icon>
+                                <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                              </div>
+                              <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                  <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                </ng-container>
+                              </mat-autocomplete>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                            {{item?.subcategory?.name}} </ng-container>
+                        </div>
+                        <div class="column">
+                          <div class="form-input w-100">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.frequency}}"
+                                (input)="formInputValueUpdate(item,'frequency',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="form-input w-100">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.time}}"
+                                (input)="formInputValueUpdate(item,'time',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="form-input w-100">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.comment}}"
+                                (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- For R2 in Individualized-->
+              <div class="list">
+                <div class="flex nowrap">
+                  <div class="serial pxwidth-50">
+                    <div class="bg-white">R2</div>
+                  </div>
+                  <div class="full-width">
+                    <div class="_header columns3">
+                      <div class="flex">
+                        <div class="column">Excercise</div>
+                        <div class="column">Sets & Reps</div>
+                        <div class="column">Comments</div>
+                      </div>
+                    </div>
+                    <div class="_body columns3" *ngFor="let item of programChartDetails?.first_portion?.R2">
+                      <div class="flex">
+                        <div class="column">
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                  value="{{setExcerciseValue(item)}}">
+                                <!-- {{item?.exercise_id == 0 ? item?.subcategory?.name : 'Edit'}} -->
+                                <!-- value="{{item?.subcategory?.name}}" -->
+                                <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                </mat-icon>
+                                <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                              </div>
+                              <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                  <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                </ng-container>
+                              </mat-autocomplete>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                            {{item?.subcategory?.name}} </ng-container>
+                        </div>
+
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.sets_reps}}"
+                                (input)="formInputValueUpdate(item,'sets_reps',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.comment}}"
+                                (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- For R3 in Individualized-->
+              <div class="list">
+                <div class="flex nowrap">
+                  <div class="serial pxwidth-50">
+                    <div class="bg-white">R3</div>
+                  </div>
+                  <div class="full-width">
+                    <div class="_header columns3">
+                      <div class="flex">
+                        <div class="column">Excercise</div>
+                        <div class="column">Sets & Reps</div>
+                        <div class="column">Comments</div>
+                      </div>
+                    </div>
+                    <div class="_body columns3" *ngFor="let item of programChartDetails?.first_portion?.R3">
+                      <div class="flex">
+                        <div class="column">
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                  value="{{setExcerciseValue(item)}}">
+                                <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                </mat-icon>
+                                <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                              </div>
+                              <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                  <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                </ng-container>
+                              </mat-autocomplete>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                            {{item?.subcategory?.name}} </ng-container>
+                        </div>
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.sets_reps}}"
+                                (input)="formInputValueUpdate(item,'sets_reps',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.comment}}"
+                                (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Day wise Portion in Individualized(Lower Portion)-->
+              <ng-container *ngFor="let item of daysProgramChartDetails;let i=index;">
+                <h2 class="uppercase">Day {{i+1}}</h2>
+
+                <!-- For R4 in Individualized-->
+                <div class="list small">
+                  <div class="flex nowrap">
+                    <div class="serial pxwidth-50">
+                      <div class="bg-white">R4</div>
+                    </div>
+                    <div class="full-width">
+                      <div class="_header columns8">
+                        <div class="flex">
+                          <div class="column"></div>
+                          <div class="column">Excercise</div>
+                          <div class="column">Rest</div>
+                          <div class="column">Week1</div>
+                          <div class="column">Week2</div>
+                          <div class="column">Week3</div>
+                          <div class="column">Week4</div>
+                          <div class="column">Comments</div>
+                        </div>
+                      </div>
+                      <div class="_body columns8" *ngFor="let item of item.R4;let i=index;">
+                        <div class="flex">
+                          <div class="column ">
+                            <div class="big">{{item?.sequence}}</div>
+                          </div>
+                          <div class="column">
+                            <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                              <div class="form-input">
+                                <div class="has-addon">
+                                  <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                    value="{{setExcerciseValue(item)}}">
+                                  <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                  </mat-icon>
+                                  <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                                </div>
+                                <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                  (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                  <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                    <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                  </ng-container>
+                                </mat-autocomplete>
+                              </div>
+                            </ng-container>
+                            <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                              {{item?.subcategory?.name}} </ng-container>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.rest}}"
+                                  (input)="formInputValueUpdate(item,'rest',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week1}}"
+                                  (input)="formInputValueUpdate(item,'week1',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week2}}"
+                                  (input)="formInputValueUpdate(item,'week2',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week3}}"
+                                  (input)="formInputValueUpdate(item,'week3',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week4}}"
+                                  (input)="formInputValueUpdate(item,'week4',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.comment}}"
+                                  (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- For R5 in Individualized-->
+                <div class="list small">
+                  <div class="flex nowrap">
+                    <div class="serial pxwidth-50">
+                      <div class="bg-white">R5</div>
+                    </div>
+                    <div class="full-width">
+                      <div class="_header columns9">
+                        <div class="flex">
+                          <div class="column small"></div>
+                          <div class="column">Excercise</div>
+                          <div class="column">Tempo</div>
+                          <div class="column">Rest</div>
+                          <div class="column">Week1</div>
+                          <div class="column">Week2</div>
+                          <div class="column">Week3</div>
+                          <div class="column">Week4</div>
+                          <div class="column">Comments</div>
+                        </div>
+                      </div>
+                      <div class="_body columns9" *ngFor="let item of item.R5;let i=index;">
+                        <div class="flex" style="flex-wrap: nowrap;">
+                          <div class="column small">
+                            <div class="big">{{item?.sequence}}</div>
+                          </div>
+                          <div class="column">
+                            <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                              <div class="form-input">
+                                <div class="has-addon">
+                                  <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                    value="{{setExcerciseValue(item)}}">
+                                  <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                  </mat-icon>
+                                  <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                                </div>
+                                <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                  (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                  <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                    <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                  </ng-container>
+                                </mat-autocomplete>
+                              </div>
+                            </ng-container>
+                            <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                              {{item?.subcategory?.name}} </ng-container>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.tempo}}"
+                                  (input)="formInputValueUpdate(item,'tempo',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.rest}}"
+                                  (input)="formInputValueUpdate(item,'rest',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week1}}"
+                                  (input)="formInputValueUpdate(item,'week1',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week2}}"
+                                  (input)="formInputValueUpdate(item,'week2',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week3}}"
+                                  (input)="formInputValueUpdate(item,'week3',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week4}}"
+                                  (input)="formInputValueUpdate(item,'week4',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column comment">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.comment}}"
+                                  (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- For R6 in Individualized-->
+                <!-- <div class="list small">
+                  <div class="flex nowrap">
+                    <div class="serial pxwidth-100">
+                      <div class="bg-white">R6</div>
+                    </div>
+                    <div class="full-width">
+                      <div class="_header columns8" *ngFor="let item of item.R6;let i=index;">
+                        <div class="flex">
+                          <div class="column">Excercise</div>
+                          <div class="column">Work</div>
+                          <div class="column">Rest</div>
+                          <div class="column">Week1</div>
+                          <div class="column">Week2</div>
+                          <div class="column">Week3</div>
+                          <div class="column">Week4</div>
+                          <div class="column">Comments</div>
+                        </div>
+                      </div>
+                      <div class="_body columns8">
+                        <div class="flex">
+                          <div class="column"> </div>
+                          <div class="column">60-90s</div>
+                          <div class="column">60-90s</div>
+                          <div class="column"></div>
+                          <div class="column"></div>
+                          <div class="column"></div>
+                          <div class="column"></div>
+                          <div class="column"></div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+              </ng-container>
+            </ng-container>
+
+            <!-- For SGPT Template -->
+            <ng-container *ngIf="currentTemplate === '2'">
+              <!-- Table Static Portion in SGPT -->
+              <div class="list">
+                <div class="_header columns4">
+                  <div class="flex">
+                    <div class="column">Name</div>
+                    <div class="column">Program Goals</div>
+                    <div class="column">Check-in Scavenger Hunt</div>
+                  </div>
+                </div>
+                <div class="_body columns4">
+                  <div class="flex">
+                    <div class="column"></div>
+                    <div class="column">Maximize Conditioning</div>
+                    <div class="column"></div>
+                  </div>
+                  <div class="flex">
+                    <div class="column"></div>
+                    <div class="column">Build Arms</div>
+                    <div class="column"></div>
+                  </div>
+                  <div class="flex">
+                    <div class="column"></div>
+                    <div class="column">Maintain Strength</div>
+                    <div class="column"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- For R1 in SGPT-->
+              <div class="list">
+                <div class="flex nowrap">
+                  <div class="serial pxwidth-50">
+                    <div class="bg-white">R1</div>
+                  </div>
+                  <div class="full-width">
+                    <div class="_header columns4">
+                      <div class="flex">
+                        <div class="column">Foam Rollar/Ball</div>
+                        <div class="column">Frequency</div>
+                        <div class="column">Time</div>
+                        <div class="column">Comments</div>
+                      </div>
+                    </div>
+                    <div class="_body columns4" *ngFor="let item of programChartDetails?.first_portion?.R1">
+                      <div class="flex">
+                        <div class="column">
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                  value="{{setExcerciseValue(item)}}">
+                                <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                </mat-icon>
+                                <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                              </div>
+                              <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                  <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                </ng-container>
+                              </mat-autocomplete>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                            {{item?.subcategory?.name}} </ng-container>
+                        </div>
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.frequency}}"
+                                (input)="formInputValueUpdate(item,'frequency',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.time}}"
+                                (input)="formInputValueUpdate(item,'time',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.comment}}"
+                                (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- For R2 in SGPT -->
+              <div class="list">
+                <div class="flex nowrap">
+                  <div class="serial pxwidth-50">
+                    <div class="bg-white">R2</div>
+                  </div>
+                  <div class="full-width">
+                    <div class="_header columns3">
+                      <div class="flex">
+                        <div class="column">Excercise</div>
+                        <div class="column">Sets & Reps</div>
+                        <div class="column">Comments</div>
+                      </div>
+                    </div>
+                    <div class="_body columns3" *ngFor="let item of programChartDetails?.first_portion?.R2">
+                      <div class="flex">
+                        <div class="column">
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                  value="{{setExcerciseValue(item)}}">
+                                <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                </mat-icon>
+                                <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                              </div>
+                              <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                  <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                </ng-container>
+                              </mat-autocomplete>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                            {{item?.subcategory?.name}} </ng-container>
+                        </div>
+
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.sets_reps}}"
+                                (input)="formInputValueUpdate(item,'sets_reps',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.comment}}"
+                                (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- For R3 in SGPT-->
+              <div class="list">
+                <div class="flex nowrap">
+                  <div class="serial pxwidth-50">
+                    <div class="bg-white">R3</div>
+                  </div>
+                  <div class="full-width">
+                    <div class="_header columns3">
+                      <div class="flex">
+                        <div class="column">Excercise</div>
+                        <div class="column">Sets & Reps</div>
+                        <div class="column">Comments</div>
+                      </div>
+                    </div>
+                    <div class="_body columns3" *ngFor="let item of programChartDetails?.first_portion?.R3">
+                      <div class="flex">
+                        <div class="column">
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                  value="{{setExcerciseValue(item)}}">
+                                <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                </mat-icon>
+                                <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                              </div>
+                              <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                  <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                </ng-container>
+                              </mat-autocomplete>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                            {{item?.subcategory?.name}} </ng-container>
+                        </div>
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.sets_reps}}"
+                                (input)="formInputValueUpdate(item,'sets_reps',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.comment}}"
+                                (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Day wise portion in SGPT (Lower Portion)-->
+              <ng-container *ngFor="let item of daysProgramChartDetails;let i=index;">
+                <h2 class="uppercase">Day {{i+1}}</h2>
+
+                <!-- For R4 in SGPT-->
+                <div class="list small">
+                  <div class="flex nowrap">
+                    <div class="serial pxwidth-50">
+                      <div class="bg-white">R4</div>
+                    </div>
+                    <div class="full-width">
+                      <div class="_header columns8">
+                        <div class="flex">
+                          <div class="column"></div>
+                          <div class="column">Excercise</div>
+                          <div class="column">Rest</div>
+                          <div class="column">Week1</div>
+                          <div class="column">Week2</div>
+                          <div class="column">Week3</div>
+                          <div class="column">Week4</div>
+                          <div class="column">Comments</div>
+                        </div>
+                      </div>
+                      <div class="_body columns8" *ngFor="let item of item.R4;let i=index;">
+                        <div class="flex">
+                          <div class="column ">
+                            <div class="big">{{item?.sequence}}</div>
+                          </div>
+                          <div class="column">
+                            <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                              <div class="form-input">
+                                <div class="has-addon">
+                                  <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                    value="{{setExcerciseValue(item)}}">
+                                  <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                  </mat-icon>
+                                  <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                                </div>
+                                <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                  (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                  <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                    <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                  </ng-container>
+                                </mat-autocomplete>
+                              </div>
+                            </ng-container>
+                            <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                              {{item?.subcategory?.name}} </ng-container>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.rest}}"
+                                  (input)="formInputValueUpdate(item,'rest',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week1}}"
+                                  (input)="formInputValueUpdate(item,'week1',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week2}}"
+                                  (input)="formInputValueUpdate(item,'week2',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week3}}"
+                                  (input)="formInputValueUpdate(item,'week3',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week4}}"
+                                  (input)="formInputValueUpdate(item,'week4',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.comment}}"
+                                  (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- For R5 in SGPT-->
+                <div class="list small">
+                  <div class="flex nowrap">
+                    <div class="serial pxwidth-50">
+                      <div class="bg-white">R5</div>
+                    </div>
+                    <div class="full-width">
+                      <div class="_header columns9">
+                        <div class="flex">
+                          <div class="column small"></div>
+                          <div class="column">Excercise</div>
+                          <div class="column">Tempo</div>
+                          <div class="column">Rest</div>
+                          <div class="column">Week1</div>
+                          <div class="column">Week2</div>
+                          <div class="column">Week3</div>
+                          <div class="column">Week4</div>
+                          <div class="column">Comments</div>
+                        </div>
+                      </div>
+                      <div class="_body columns9" *ngFor="let item of item.R5;let i=index;">
+                        <div class="flex" style="flex-wrap: nowrap;">
+                          <div class="column small">
+                            <div class="big">{{item?.sequence}}</div>
+                          </div>
+                          <div class="column">
+                            <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                              <div class="form-input">
+                                <div class="has-addon">
+                                  <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                    value="{{setExcerciseValue(item)}}">
+                                  <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                  </mat-icon>
+                                  <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                                </div>
+                                <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                  (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                  <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                    <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                  </ng-container>
+                                </mat-autocomplete>
+                              </div>
+                            </ng-container>
+                            <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                              {{item?.subcategory?.name}} </ng-container>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.tempo}}"
+                                  (input)="formInputValueUpdate(item,'tempo',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.rest}}"
+                                  (input)="formInputValueUpdate(item,'rest',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week1}}"
+                                  (input)="formInputValueUpdate(item,'week1',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week2}}"
+                                  (input)="formInputValueUpdate(item,'week2',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week3}}"
+                                  (input)="formInputValueUpdate(item,'week3',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week4}}"
+                                  (input)="formInputValueUpdate(item,'week4',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column comment">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.comment}}"
+                                  (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- For R6 in SGPT-->
+                <!-- <div class="list small">
+                      <div class="flex nowrap">
+                        <div class="serial pxwidth-100">
+                          <div class="bg-white">R6</div>
+                        </div>
+                        <div class="full-width">
+                          <div class="_header columns8" *ngFor="let item of item.R6;let i=index;">
+                            <div class="flex">
+                              <div class="column">Excercise</div>
+                              <div class="column">Work</div>
+                              <div class="column">Rest</div>
+                              <div class="column">Week1</div>
+                              <div class="column">Week2</div>
+                              <div class="column">Week3</div>
+                              <div class="column">Week4</div>
+                              <div class="column">Comments</div>
+                            </div>
+                          </div>
+                          <div class="_body columns8">
+                            <div class="flex">
+                              <div class="column"> </div>
+                              <div class="column">60-90s</div>
+                              <div class="column">60-90s</div>
+                              <div class="column"></div>
+                              <div class="column"></div>
+                              <div class="column"></div>
+                              <div class="column"></div>
+                              <div class="column"></div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+              </ng-container>
+            </ng-container>
+
+            <!-- For Beast University Template -->
+            <ng-container *ngIf="currentTemplate === '3'">
+              <!-- Table Static Portion in Beast University Template -->
+              <div class="list">
+                <div class="_header columns4">
+                  <div class="flex">
+                    <div class="column">Name</div>
+                    <div class="column">Assessment Results</div>
+                    <div class="column">Comments:</div>
+                  </div>
+                </div>
+                <div class="_body columns4">
+                  <div class="flex">
+                    <div class="column"></div>
+                    <div class="column"></div>
+                    <div class="column"></div>
+                  </div>
+                  <div class="flex">
+                    <div class="column"></div>
+                    <div class="column"></div>
+                    <div class="column"></div>
+                  </div>
+                  <div class="flex">
+                    <div class="column"></div>
+                    <div class="column"></div>
+                    <div class="column"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- For R1 in Beast University Template -->
+              <div class="list">
+                <div class="flex nowrap">
+                  <div class="serial pxwidth-50">
+                    <div class="bg-white">R1</div>
+                  </div>
+                  <div class="full-width">
+                    <div class="_header columns4">
+                      <div class="flex">
+                        <div class="column">Foam Rollar/Ball</div>
+                        <div class="column">Frequency</div>
+                        <div class="column">Time</div>
+                        <div class="column">Comments</div>
+                      </div>
+                    </div>
+                    <div class="_body columns4" *ngFor="let item of programChartDetails?.first_portion?.R1">
+                      <div class="flex">
+                        <div class="column">
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                  value="{{setExcerciseValue(item)}}">
+                                <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                </mat-icon>
+                                <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                              </div>
+                              <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                  <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                </ng-container>
+                              </mat-autocomplete>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                            {{item?.subcategory?.name}} </ng-container>
+                        </div>
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.frequency}}"
+                                (input)="formInputValueUpdate(item,'frequency',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.time}}"
+                                (input)="formInputValueUpdate(item,'time',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.comment}}"
+                                (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- For R2 in Beast University Template-->
+              <div class="list">
+                <div class="flex nowrap">
+                  <div class="serial pxwidth-50">
+                    <div class="bg-white">R2</div>
+                  </div>
+                  <div class="full-width">
+                    <div class="_header columns3">
+                      <div class="flex">
+                        <div class="column">Excercise</div>
+                        <div class="column">Sets & Reps</div>
+                        <div class="column">Comments</div>
+                      </div>
+                    </div>
+                    <div class="_body columns3" *ngFor="let item of programChartDetails?.first_portion?.R2">
+                      <div class="flex">
+                        <div class="column">
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                  value="{{setExcerciseValue(item)}}">
+                                <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                </mat-icon>
+                                <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                              </div>
+                              <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                  <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                </ng-container>
+                              </mat-autocomplete>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                            {{item?.subcategory?.name}} </ng-container>
+                        </div>
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.sets_reps}}"
+                                (input)="formInputValueUpdate(item,'sets_reps',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.comment}}"
+                                (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- For R3 in Beast University Template-->
+              <div class="list">
+                <div class="flex nowrap">
+                  <div class="serial pxwidth-50">
+                    <div class="bg-white">R3</div>
+                  </div>
+                  <div class="full-width">
+                    <div class="_header columns3">
+                      <div class="flex">
+                        <div class="column">Excercise</div>
+                        <div class="column">Sets & Reps</div>
+                        <div class="column">Comments</div>
+                      </div>
+                    </div>
+                    <div class="_body columns3" *ngFor="let item of programChartDetails?.first_portion?.R3">
+                      <div class="flex">
+                        <div class="column">
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                  value="{{setExcerciseValue(item)}}">
+                                <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                </mat-icon>
+                                <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                              </div>
+                              <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                  <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                </ng-container>
+                              </mat-autocomplete>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                            {{item?.subcategory?.name}} </ng-container>
+                        </div>
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.sets_reps}}"
+                                (input)="formInputValueUpdate(item,'sets_reps',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="form-input">
+                            <div class="has-addon">
+                              <input type="text" value="{{item?.comment}}"
+                                (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Day wise Portion in Beast University Template(Lower Portion)-->
+              <ng-container *ngFor="let item of daysProgramChartDetails;let i=index;">
+                <h2 class="uppercase">Day {{i+1}}</h2>
+
+                <!-- For R4 in Beast University Template-->
+                <div class="list small">
+                  <div class="flex nowrap">
+                    <div class="serial pxwidth-50">
+                      <div class="bg-white">R4</div>
+                    </div>
+                    <div class="full-width">
+                      <div class="_header columns8">
+                        <div class="flex">
+                          <div class="column"></div>
+                          <div class="column">Excercise</div>
+                          <div class="column">Rest</div>
+                          <div class="column">Week1</div>
+                          <div class="column">Week2</div>
+                          <div class="column">Week3</div>
+                          <div class="column">Week4</div>
+                          <div class="column">Comments</div>
+                        </div>
+                      </div>
+                      <div class="_body columns8" *ngFor="let item of item.R4;let i=index;">
+                        <div class="flex">
+                          <div class="column ">
+                            <div class="big">{{item?.sequence}}</div>
+                          </div>
+                          <div class="column">
+                            <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                              <div class="form-input">
+                                <div class="has-addon">
+                                  <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                    value="{{setExcerciseValue(item)}}">
+                                  <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                  </mat-icon>
+                                  <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                                </div>
+                                <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                  (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                  <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                    <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                  </ng-container>
+                                </mat-autocomplete>
+                              </div>
+                            </ng-container>
+                            <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                              {{item?.subcategory?.name}} </ng-container>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.rest}}"
+                                  (input)="formInputValueUpdate(item,'rest',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week1}}"
+                                  (input)="formInputValueUpdate(item,'week1',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week2}}"
+                                  (input)="formInputValueUpdate(item,'week2',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week3}}"
+                                  (input)="formInputValueUpdate(item,'week3',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week4}}"
+                                  (input)="formInputValueUpdate(item,'week4',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.comment}}"
+                                  (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- For R5 in Beast University Template-->
+                <div class="list small">
+                  <div class="flex nowrap">
+                    <div class="serial pxwidth-50">
+                      <div class="bg-white">R5</div>
+                    </div>
+                    <div class="full-width">
+                      <div class="_header columns9">
+                        <div class="flex">
+                          <div class="column small"></div>
+                          <div class="column">Excercise</div>
+                          <div class="column">Tempo</div>
+                          <div class="column">Rest</div>
+                          <div class="column">Week1</div>
+                          <div class="column">Week2</div>
+                          <div class="column">Week3</div>
+                          <div class="column">Week4</div>
+                          <div class="column">Comments</div>
+                        </div>
+                      </div>
+                      <div class="_body columns9" *ngFor="let item of item.R5;let i=index;">
+                        <div class="flex" style="flex-wrap: nowrap;">
+                          <div class="column small">
+                            <div class="big">{{item?.sequence}}</div>
+                          </div>
+                          <div class="column">
+                            <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                              <div class="form-input">
+                                <div class="has-addon">
+                                  <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                    value="{{setExcerciseValue(item)}}">
+                                  <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                  </mat-icon>
+                                  <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                                </div>
+                                <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                  (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                  <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                    <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                  </ng-container>
+                                </mat-autocomplete>
+                              </div>
+                            </ng-container>
+                            <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                              {{item?.subcategory?.name}} </ng-container>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.tempo}}"
+                                  (input)="formInputValueUpdate(item,'tempo',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.rest}}"
+                                  (input)="formInputValueUpdate(item,'rest',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week1}}"
+                                  (input)="formInputValueUpdate(item,'week1',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week2}}"
+                                  (input)="formInputValueUpdate(item,'week2',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week3}}"
+                                  (input)="formInputValueUpdate(item,'week3',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.week4}}"
+                                  (input)="formInputValueUpdate(item,'week4',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="column comment">
+                            <div class="form-input">
+                              <div class="has-addon">
+                                <input type="text" value="{{item?.comment}}"
+                                  (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- For R6 in Beast University Template-->
+                <!-- <div class="list small">
+                    <div class="flex nowrap">
+                      <div class="serial pxwidth-100">
+                        <div class="bg-white">R6</div>
+                      </div>
+                      <div class="full-width">
+                        <div class="_header columns8" *ngFor="let item of item.R6;let i=index;">
+                          <div class="flex">
+                            <div class="column">Excercise</div>
+                            <div class="column">Work</div>
+                            <div class="column">Rest</div>
+                            <div class="column">Week1</div>
+                            <div class="column">Week2</div>
+                            <div class="column">Week3</div>
+                            <div class="column">Week4</div>
+                            <div class="column">Comments</div>
+                          </div>
+                        </div>
+                        <div class="_body columns8">
+                          <div class="flex">
+                            <div class="column"> </div>
+                            <div class="column">60-90s</div>
+                            <div class="column">60-90s</div>
+                            <div class="column"></div>
+                            <div class="column"></div>
+                            <div class="column"></div>
+                            <div class="column"></div>
+                            <div class="column"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <div class="list small">
+                    <div class="flex nowrap">
+                      <div class="serial pxwidth-50">
+                        <div class="bg-white">R6</div>
+                      </div>
+                      <div class="full-width">
+                        <div class="_header columns9">
+                          <div class="flex">
+                            <div class="column small"></div>
+                            <div class="column">Excercise</div>
+                            <div class="column">Tempo</div>
+                            <div class="column">Rest</div>
+                            <div class="column">Week1</div>
+                            <div class="column">Week2</div>
+                            <div class="column">Week3</div>
+                            <div class="column">Week4</div>
+                            <div class="column">Comments</div>
+                          </div>
+                        </div>
+                        <div class="_body columns9" *ngFor="let item of item.R6;let i=index;">
+                          <div class="flex" style="flex-wrap: nowrap;">
+                            <div class="column small">
+                              <div class="big">{{item?.sequence}}</div>
+                            </div>
+                            <div class="column">
+                              <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                                <div class="form-input">
+                                  <div class="has-addon">
+                                    <input type="text" placeholder="N/A" [matAutocomplete]="exerciseDropdown"
+                                      value="{{setExcerciseValue(item)}}">
+                                    <mat-icon *ngIf="!exerciseDropdown?.isOpen">keyboard_arrow_down
+                                    </mat-icon>
+                                    <mat-icon *ngIf="exerciseDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                                  </div>
+                                  <mat-autocomplete #exerciseDropdown="matAutocomplete"
+                                    (optionSelected)='subCatChange($event.option.value, item?.subcategory?.exercisesub, item)'>
+                                    <ng-container *ngFor="let exercise of item?.subcategory?.exercisesub;">
+                                      <mat-option [value]="exercise?.name">{{exercise?.name}}</mat-option>
+                                    </ng-container>
+                                  </mat-autocomplete>
+                                </div>
+                              </ng-container>
+                              <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                                {{item?.subcategory?.name}} </ng-container>
+                            </div>
+                            <div class="column">
+                              <div class="form-input">
+                                <div class="has-addon">
+                                  <input type="text" value="{{item?.tempo}}"
+                                    (input)="formInputValueUpdate(item,'tempo',$event.target.value)">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="column">
+                              <div class="form-input">
+                                <div class="has-addon">
+                                  <input type="text" value="{{item?.rest}}"
+                                    (input)="formInputValueUpdate(item,'rest',$event.target.value)">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="column">
+                              <div class="form-input">
+                                <div class="has-addon">
+                                  <input type="text" value="{{item?.week1}}"
+                                    (input)="formInputValueUpdate(item,'week1',$event.target.value)">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="column">
+                              <div class="form-input">
+                                <div class="has-addon">
+                                  <input type="text" value="{{item?.week2}}"
+                                    (input)="formInputValueUpdate(item,'week2',$event.target.value)">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="column">
+                              <div class="form-input">
+                                <div class="has-addon">
+                                  <input type="text" value="{{item?.week3}}"
+                                    (input)="formInputValueUpdate(item,'week3',$event.target.value)">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="column">
+                              <div class="form-input">
+                                <div class="has-addon">
+                                  <input type="text" value="{{item?.week4}}"
+                                    (input)="formInputValueUpdate(item,'week4',$event.target.value)">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="column comment">
+                              <div class="form-input">
+                                <div class="has-addon">
+                                  <input type="text" value="{{item?.comment}}"
+                                    (input)="formInputValueUpdate(item,'comment',$event.target.value)">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </ng-container>
+            </ng-container>
+          </div>
+
+          <!-- Program Control Form-->
+          <div class="width-20 col">
+            <!-- class="width-25 col" -->
+            <div class="_header">
+              <h3>Program Controls</h3>
+            </div>
+            <div class="program-list">
+              <div class="box">
+                <form [formGroup]="form">
+                  <!-- Program Goal -->
+                  <div class="form-input" *ngIf="showProgramGoal">
+                    <label>Program Goal</label>
+                    <div class="has-addon">
+                      <input type="text" formControlName="program_goal" placeholder="N/A"
+                        [matAutocomplete]="programGoalDropdown">
+                      <mat-icon *ngIf="!programGoalDropdown?.isOpen">keyboard_arrow_down
+                      </mat-icon>
+                      <mat-icon *ngIf="programGoalDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                    </div>
+                    <div class="alert error"
+                      *ngIf="form.controls.program_goal.touched && form.controls.program_goal.hasError('required')">
+                      Program Goal is required.
+                    </div>
+                    <mat-autocomplete #programGoalDropdown="matAutocomplete"
+                      [displayWith]="programGoalDisplay.bind(this)"
+                      (optionSelected)='changeProgramGoal($event.option.value)'>
+                      <ng-container *ngFor="let item of programGoalList;">
+                        <mat-option [value]="item?.id">{{item.name}}</mat-option>
+                      </ng-container>
+                    </mat-autocomplete>
+                  </div>
+
+                  <!-- Block Focus -->
+                  <div class="form-input">
+                    <label>Block Focus</label>
+                    <div class="has-addon">
+                      <input type="text" formControlName="block_focus" placeholder="N/A"
+                        [matAutocomplete]="blockFocusDropdown" class="cursor-pointer">
+                      <mat-icon *ngIf="!blockFocusDropdown?.isOpen">keyboard_arrow_down
+                      </mat-icon>
+                      <mat-icon *ngIf="blockFocusDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                    </div>
+                    <div class="alert error"
+                      *ngIf="form.controls.block_focus.touched && form.controls.block_focus.hasError('required')">
+                      Block Focus is required.
+                    </div>
+                    <mat-autocomplete #blockFocusDropdown="matAutocomplete"
+                      [displayWith]="blockFocusDisplay.bind(this)">
+                      <ng-container *ngFor="let item of blockFocusList;">
+                        <mat-option [value]="item?.id">{{item.name}}</mat-option>
+                      </ng-container>
+                    </mat-autocomplete>
+                  </div>
+
+                  <!-- Days -->
+                  <div class="form-input programName" *ngIf="showDays">
+                    <label>Days</label>
+                    <div class="has-addon">
+                      <input type="text" formControlName="days">
+                    </div>
+                    <div class="alert error"
+                      *ngIf="form.controls.days.touched && form.controls.days.hasError('required')">
+                      Days is required.
+                    </div>
+                  </div>
+
+                  <!-- Athlete Profile -->
+                  <div class="form-input" *ngIf="showAthleteProfile">
+                    <label>Athlete Profile</label>
+                    <div class="has-addon">
+                      <input type="text" formControlName="athlete_profile" [matAutocomplete]="AthleteDropdown"
+                        class="cursor-pointer">
+                      <mat-icon *ngIf="!AthleteDropdown?.isOpen">keyboard_arrow_down
+                      </mat-icon>
+                      <mat-icon *ngIf="AthleteDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                    </div>
+                    <div class="alert error"
+                      *ngIf="form.controls.athlete_profile.touched && form.controls.athlete_profile.hasError('required')">
+                      Athlete Profile is required.
+                    </div>
+                    <mat-autocomplete #AthleteDropdown="matAutocomplete"
+                      [displayWith]="athleteProfileDisplay.bind(this)">
+                      <ng-container *ngFor="let item of athleteProfileList;">
+                        <mat-option [value]="item?.id">{{item.name}}</mat-option>
+                      </ng-container>
+                    </mat-autocomplete>
+                  </div>
+
+                  <!-- Season -->
+                  <div class="form-input" *ngIf="showSeason">
+                    <label>Season</label>
+                    <div class="has-addon">
+                      <input type="text" formControlName="season" [matAutocomplete]="SeasonDropdown"
+                        class="cursor-pointer">
+                      <mat-icon *ngIf="!SeasonDropdown?.isOpen">keyboard_arrow_down
+                      </mat-icon>
+                      <mat-icon *ngIf="SeasonDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                    </div>
+                    <div class="alert error"
+                      *ngIf="form.controls.season.touched && form.controls.season.hasError('required')">
+                      Season is required.
+                    </div>
+                    <mat-autocomplete #SeasonDropdown="matAutocomplete" [displayWith]="seasonDisplay.bind(this)">
+                      <ng-container *ngFor="let item of seasonList;">
+                        <mat-option [value]="item?.id">{{item.name}}</mat-option>
+                      </ng-container>
+                    </mat-autocomplete>
+                  </div>
+
+                  <!-- Sport -->
+                  <div class="form-input" *ngIf="showSport">
+                    <label>Sport</label>
+                    <div class="has-addon">
+                      <input type="text" formControlName="sport" [matAutocomplete]="SportDropdown"
+                        class="cursor-pointer">
+                      <mat-icon *ngIf="!SportDropdown?.isOpen">keyboard_arrow_down
+                      </mat-icon>
+                      <mat-icon *ngIf="SportDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                    </div>
+                    <div class="alert error"
+                      *ngIf="form.controls.sport.touched && form.controls.sport.hasError('required')">
+                      Sport is required.
+                    </div>
+                    <mat-autocomplete #SportDropdown="matAutocomplete" [displayWith]="sportDisplay.bind(this)">
+                      <ng-container *ngFor="let item of sportList;">
+                        <mat-option [value]="item?.id">{{item.name}}</mat-option>
+                      </ng-container>
+                    </mat-autocomplete>
+                  </div>
+
+                  <!-- Assessment Results -->
+                  <div class="form-input">
+                    <label>Assessment Results</label>
+                    <div class="has-addon">
+                      <input type="text" formControlName="assessment_results" placeholder="N/A"
+                        [matAutocomplete]="assessmentDropdown" class="cursor-pointer">
+                      <mat-icon *ngIf="!assessmentDropdown?.isOpen">keyboard_arrow_down
+                      </mat-icon>
+                      <mat-icon *ngIf="assessmentDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                    </div>
+                    <div class="alert error"
+                      *ngIf="form.controls.assessment_results.touched && form.controls.assessment_results.hasError('required')">
+                      Assessment Results is required.
+                    </div>
+                    <mat-autocomplete #assessmentDropdown="matAutocomplete"
+                      [displayWith]="assessmentDisplay.bind(this)">
+                      <mat-option [value]="">Add new</mat-option>
+                      <ng-container *ngFor="let item of assessmentList;">
+                        <mat-option [value]="item?.id">{{item.name}}</mat-option>
+                      </ng-container>
+                    </mat-autocomplete>
+                  </div>
+
+                  <!-- Add new assesment -->
+                  <div class="form-input programName" *ngIf="addNewAssessment">
+                    <label>Enter Assessment Name</label>
+                    <form #newAssesmentForm="ngForm" (ngSubmit)="addAssesment(newAssesmentForm)">
+                      <div>
+                        <input name="newAssesment" ngModel required #newAssesment="ngModel" class="cursor-pointer">
+                      </div>
+                      <div class="alert error"
+                        *ngIf="newAssesmentForm.touched && !newAssesmentForm.valid || newAssesmentForm.submitted && !newAssesmentForm.valid">
+                        New Assessment name is required.
+                      </div>
+                      <div class="text-center" style="margin-top: 15px;">
+                        <button class="btn-white btn-flip" type="submit">
+                          <span class="text">
+                            <span>Add Assessment</span>
+                          </span>
+                          <span class="flip black"></span>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <!-- Training Level/Age -->
+                  <div class="form-input">
+                    <label>Training Level/Age</label>
+                    <div class="has-addon">
+                      <input type="text" formControlName="training_level" [matAutocomplete]="trainingDropdown"
+                        class="cursor-pointer">
+                      <mat-icon *ngIf="!trainingDropdown?.isOpen">keyboard_arrow_down
+                      </mat-icon>
+                      <mat-icon *ngIf="trainingDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                    </div>
+                    <div class="alert error"
+                      *ngIf="form.controls.training_level.touched && form.controls.training_level.hasError('required')">
+                      Training Level/Age is required.
+                    </div>
+                    <mat-autocomplete #trainingDropdown="matAutocomplete" [displayWith]="trainingAgeDisplay.bind(this)">
+                      <ng-container *ngFor="let item of trainingAgeList;">
+                        <mat-option [value]="item?.id">{{item.name}}</mat-option>
+                      </ng-container>
+                    </mat-autocomplete>
+                  </div>
+
+                  <!-- Program Template -->
+                  <div class="form-input" *ngIf="showProgramTemplate">
+                    <label>Program Template</label>
+                    <div class="has-addon">
+                      <input type="text" formControlName="program_template" placeholder="N/A"
+                        [matAutocomplete]="programTemplateDropdown">
+                      <mat-icon *ngIf="!programTemplateDropdown?.isOpen">keyboard_arrow_down
+                      </mat-icon>
+                      <mat-icon *ngIf="programTemplateDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                    </div>
+                    <div class="alert error"
+                      *ngIf="form.controls.program_template.touched && form.controls.program_template.hasError('required')">
+                      Program Template is required.
+                    </div>
+                    <mat-autocomplete #programTemplateDropdown="matAutocomplete"
+                      [displayWith]="programTemplateDisplay.bind(this)"
+                      (optionSelected)='changeProgramTemplate($event.option.value)'>
+                      <ng-container *ngFor="let item of programTemplateList;">
+                        <mat-option [value]="item?.id">{{item.name}}</mat-option>
+                      </ng-container>
+                    </mat-autocomplete>
+                  </div>
+
+                  <!-- Program Name -->
+                  <div class="form-input programName">
+                    <label>Enter Program Name</label>
+                    <div class="has-addon">
+                      <input type="text" formControlName="program_name">
+                    </div>
+                    <div class="alert error"
+                      *ngIf="form.controls.program_name.touched && form.controls.program_name.hasError('required')">
+                      Program Name is required.
+                    </div>
+                  </div>
+
+                  <!-- Generate PDF -->
+                  <div class="button-group flex justify">
+                    <button class="btn-teal btn-flip" (click)="generatePDF(form.value); isPdfGenerate = true;">
+                      <span class="text">
+                        <span>
+                          Generate PDF
+                        </span>
+                      </span>
+                      <span class="flip"></span>
+                    </button>
+                    <button (click)="form.reset()" class="btn-gray btn-flip">
+                      <span class="text">
+                        <span>
+                          Clear
+                        </span>
+                      </span>
+                      <span class="flip black"></span>
+                    </button>
+                  </div>
+
+                  <!-- Save Program -->
+                  <div class="text-center" style="margin-top: 15px;">
+                    <button class="btn-white btn-flip" (click)="submitFormInit(form.value); isPdfGenerate = false;">
+                      <span class="text">
+                        <span *ngIf="this.typeOfData === 'new'">Save Program</span>
+                        <span *ngIf="this.typeOfData === 'edit'">Update Program</span>
+                      </span>
+                      <span class="flip black"></span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<!-- For athlete (beast university) template -->
+<ng-container *ngIf="dataType === 'athlete'" >
+<div class="pdfGenerationClass" style="display: none;"  id="pdfData" >
+  <div class="initialWarp" >
+    <div class="row justify-content-between">
+      <div class="col-6">
+        <table style="text-align: center;">
+          <thead style="background-color: #DAEEF3;">
+            <tr>
+              <td class="w-50">Name</td>
+              <td class="w-50">
+                Program Goals
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="w-50">&#160;</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50" rowspan="4">&#160;</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">&#160;</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        
+        <!-- R1 -->
+        <div class="r4" style="margin-bottom: 5px;">
+          <table style="text-align: center;">
+            <tr>
+              <td class=" w-auto border-right-0">
+                <h5 class="rotted mb-0  ">R1</h5>
+              </td>
+              <td class="p-0 border-left-0 border-bottom-0">
+                <table class="border-0">
+                  <thead style="background-color: #DAEEF3;">
+                    <tr>
+                      <td class="tr0 border-top-0">
+                        Foam Roller/Ball
+                      </td>
+                      <td class="tr0 border-top-0">
+                        Frequency
+                      </td>
+                      <td class="tr0 border-top-0">
+                        Time
+                      </td>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr *ngFor="let item of datasetReady?.programChartData[0]?.R1 | slice:0:3">
+                      <td class="tr0  ">
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                          {{setExcerciseValue(item)}}
+                        </ng-container>
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                          {{item?.subcategory?.name}} 
+                        </ng-container>
+                      </td>
+                      <td class="tr0  ">
+                        {{item?.frequency}}
+                      </td>
+                      <td class="tr0  ">
+                        <span>{{item?.time}}</span>
+                      </td>
+                    </tr>
+                  </tbody>
+
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+  
+      <div class="col-5" style="margin-bottom: 10px;">
+        <table style="text-align: center;">
+          <thead style="background-color: #DAEEF3;">
+            <tr>
+              <td class="w-50">Check-in Scavenger Hunt</td>
+              <td class="w-50">
+                Done
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="w-50">Selfie with Ollie</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Selfie on a bike/Elliptical (Coat Rack)</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Selfie with a Friend you brought to BEST</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Palm of Protein Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Deadlift Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">2 Fists of Veggies Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Sled Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Cupped Handful of Carbs Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Selfie Saying no to Sugar</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Core Exercise Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">COMPLETE Rest Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Playing/working Outside Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+  
+          </tbody>
+        </table>
+      </div>
+
+      <!-- R2 -->
+      <div class="col-12">
+        <div class="r4" style="margin-bottom: 5px;">
+          <table style="text-align: center;">
+            <tr>
+              <td class=" w-auto border-right-0">
+                <h5 class="rotted mb-0  ">R2</h5>
+              </td>
+              <td class="p-0 border-left-0 border-bottom-0">
+                <table class="border-0">
+                  <thead style="background-color: #DAEEF3;">
+                    <tr>
+                      <td class="tr0 border-top-0">
+                        Exercises
+                      </td>
+                      <td class="tr0 border-top-0">
+                        Sets and Reps
+                      </td>
+                      <td class="tr0 border-top-0">
+                        Comments
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of datasetReady?.programChartData[0]?.R2 | slice:0:2">
+                      <td class="   ">
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                          {{setExcerciseValue(item)}}
+                        </ng-container>
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                          {{item?.subcategory?.name}} 
+                        </ng-container>
+                      </td>
+                      <td class="   ">
+                        {{item?.sets_reps}}
+                      </td>
+                      <td class="   ">
+                        {{item?.comment}}
+                      </td>
+                    </tr>
+  
+                    <!-- <tr>
+                      <td class="   ">
+                        Low Oblique Sit Plank
+                      </td>
+                      <td class="   ">
+                        2x5 breaths
+                      </td>
+                      <td class="   ">
+                        Wide ribcage angles do this one
+                      </td>
+                    </tr> -->
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- R3-->
+      <div class="col-12">
+        <div class="r4" style="margin-bottom: 5px;">
+          <table style="text-align: center;">
+            <tr>
+              <td class=" w-auto border-right-0">
+                <h5 class="rotted mb-0  ">R3</h5>
+              </td>
+              <td class="p-0 border-left-0 border-bottom-0">
+                <table class="border-0">
+                  <thead style="background-color: #DAEEF3;">
+                    <tr>
+                      <td class="tr0 border-top-0">
+                        Exercises
+                      </td>
+                      <td class="tr0 border-top-0">
+                        Sets and Reps
+                      </td>
+                      <td class="tr0 border-top-0">
+                        Comments
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of datasetReady?.programChartData[0]?.R3 | slice:0:6">
+                      <td class="   ">
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                          {{setExcerciseValue(item)}}
+                        </ng-container>
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                          {{item?.subcategory?.name}} 
+                        </ng-container>
+                      </td>
+                      <td class="   ">
+                        {{item?.sets_reps}}
+                      </td>
+                      <td class="   ">
+                        <a>{{item?.comment}}</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- new page -->
+  <!-- <div class="html2pdf__page-break"></div> -->
+  <ng-container *ngFor="let dataForPdf of datasetReady?.programChartData; let index=index">
+    <ng-container *ngIf="index > 0">
+  
+      <!-- new page added for every day -->
+      <div class="html2pdf__page-break"></div>
+  
+      <!-- R4 -->
+      <div class="r4" style="margin-bottom: 5px;">
+        <h5 class="mb-0 font-bold">Day {{index}}</h5>
+        <table>
+          <tr>
+            <td class=" w-auto">
+              <h5 class="rotted mb-0  ">R4</h5>
+            </td>
+            <td class="p-0 border-bottom-0">
+              <table class="border-0">
+                <thead style="background-color: #DAEEF3;">
+                  <tr>
+                    <td class="border-left-0 border-top-0 w-auto">&#160;</td>
+                    <!-- <td class="border-top-0 w-auto">&#160;</td> -->
+                    <td class="border-top-0" align="center">Exercise</td>
+                    <td class="border-top-0" align="center">Rest</td>
+                    <td class="border-top-0 white-space" align="center">Week 1</td>
+                    <td class="border-top-0 white-space" align="center">Week 2</td>
+                    <td class="border-top-0 white-space" align="center">Week 3</td>
+                    <td class="border-top-0 white-space" align="center">Week 4</td>
+                    <td class="border-top-0 white-space"><span style="width: 150px; display: block;"
+                        align="center">Comments</span></td>
+                  </tr>
+                </thead>  
+                <ng-container *ngFor="let item of dataForPdf?.R4 | slice:0:6">
+                  <tr>
+                    <td class="border-left-0 w-auto" rowspan="2">
+                      {{item?.sequence}}
+                    </td>
+                    <!-- <td class="w-auto">
+                      L1
+                    </td> -->
+                    <td>
+                      <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                        {{setExcerciseValue(item)}}
+                      </ng-container>
+                      <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                        {{item?.subcategory?.name}} 
+                      </ng-container>
+                    </td>
+                    <td align="center" rowspan="2">
+                      {{item?.rest}}
+                    </td>
+                    <td align="center" bgcolor="#92CDDC">
+                      {{item?.week1}}
+                    </td>
+                    <td align="center" bgcolor="#92CDDC">
+                      {{item?.week2}}
+                    </td>
+                    <td align="center" bgcolor="#92CDDC">
+                      {{item?.week3}}
+                    </td>
+                    <td align="center" bgcolor="#92CDDC">
+                      {{item?.week4}}
+                    </td>
+                    <td align="center" bgcolor="#92CDDC">
+                      {{item?.comment}}
+                    </td>
+                  </tr>
+                  <tr>  
+                    <!-- <td class="w-auto">
+                      L2
+                    </td>
+                    <td>
+                      2-Point MB Punch
+                    </td> -->  
+                    <!-- <td>  
+                    </td>
+                    <td>  
+                    </td>
+                    <td>  
+                    </td>
+                    <td>  
+                    </td>   -->
+                  </tr>
+                </ng-container>
+      
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+  
+      <!-- R5 -->
+      <div class="r5">
+        <table>
+          <tr>
+            <td class=" w-auto">
+              <h5 class="rotted mb-0  ">R5</h5>
+            </td>
+            <td class="p-0 border-bottom-0">
+              <table class="border-0">
+                <thead style="background-color: #DAEEF3;">
+                  <tr>
+                    <td class="border-left-0 border-top-0 w-auto">&#160;</td>
+                    <!-- <td class="border-top-0 w-auto">&#160;</td> -->
+                    <td class="border-top-0" align="center">Exercise</td>
+                    <td class="border-top-0" align="center">Tempo</td>
+                    <td class="border-top-0" align="center">Rest</td>
+                    <td class="border-top-0 white-space" align="center">Week 1</td>
+                    <td class="border-top-0 white-space" align="center">Week 2</td>
+                    <td class="border-top-0 white-space" align="center">Week 3</td>
+                    <td class="border-top-0 white-space" align="center">Week 4</td>
+                    <td class="border-top-0 white-space"><span style="width: 150px; display: block;"
+                        align="center">Comments</span></td>
+                  </tr>
+                </thead>  
+                <ng-container *ngFor="let item of dataForPdf?.R5 | slice:0:6; let i = index">
+                  <tr>
+                    <td class="border-left-0 w-auto" rowspan="6">
+                      {{item?.sequence}}
+                    </td>
+                    <!-- <td class="w-auto" rowspan="2">
+                      L1
+                    </td> -->
+                    <td rowspan="2">
+                      <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                        {{setExcerciseValue(item)}}
+                      </ng-container>
+                      <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                        {{item?.subcategory?.name}} 
+                      </ng-container>
+                    </td>
+                    <td align="center" rowspan="6">
+                      {{item?.tempo}} 
+                    </td>
+                    <td align="center" rowspan="6">
+                      {{item?.rest ? '0-' + item?.rest + 's' : ''}}
+                    </td>
+                    <td align="center" bgcolor="#92CDDC">
+                      {{item?.week1}}
+                    </td>
+                    <td align="center" bgcolor="#92CDDC">
+                      {{item?.week2}}
+                    </td>
+                    <td align="center" bgcolor="#92CDDC">
+                      {{item?.week3}}
+                    </td>
+                    <td align="center" bgcolor="#92CDDC">
+                      {{item?.week4}}
+                    </td>
+                    <td align="center" bgcolor="#92CDDC">
+                      {{item?.comment}}
+                    </td>  
+                  </tr>
+                  <tr>
+                    <!-- <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td>
+                  </tr> -->
+                  <tr>  
+                    <!-- <td class="w-auto" rowspan="2">
+                      L2
+                    </td>
+                    <td rowspan="2">
+                      2-KB Deadlift + Row
+                    </td> -->  
+                    <!-- <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td> -->
+      
+                  </tr>
+                  <tr>
+                    <!-- <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td> -->
+                  </tr>  
+                  <tr>
+                    <!-- <td class="w-auto" rowspan="2">
+                      L3
+                    </td>
+                    <td rowspan="2">
+                      &#160;
+                    </td>  
+                    <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td> -->
+                  </tr>  
+                  <tr>
+                    <!-- <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td>
+                    <td>
+                      &#160;
+                    </td> -->
+                  </tr>
+                </ng-container>
+      
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+      
+    </ng-container>
+  </ng-container>   
+  <div>
+    <!-- <table style="text-align: center;" class="table-width-auto">
+      <thead style="background-color: #DAEEF3;">
+        <tr>
+          <td>Name</td>
+          <td>
+            Program Goals
+          </td>
+          <td>
+            Assessment Results
+          </td>
+          <td>
+            Coaches Notes:
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cal Aulizia</td>
+          <td>Get strong</td>
+          <td>&#160;</td>
+          <td>&#160;</td>
+        </tr>
+        <tr>
+          <td rowspan="4">&#160;</td>
+          <td>Increase Jumping capacity</td>
+          <td>&#160;</td>
+          <td>&#160;</td>
+        </tr>
+        <tr>
+           <td>Build Upper Body Muscle Mass</td>
+          <td>&#160;</td>
+          <td>&#160;</td>
+        </tr>
+        <tr>
+           <td>&#160;</td>
+          <td>&#160;</td>
+          <td>&#160;</td>
+        </tr>  
+      </tbody>
+    </table> -->
+  </div>
+</div>
+</ng-container>
+
+<!-- For gen-pop SGPT Templates Pdf -->
+<ng-container *ngIf="dataType === 'gen-pop' && dataTemplate === 'SGPT Templates'" >
+<div class="pdfGenerationClass" style="display: none;" id="pdfData" >
+  <div class="initialWarp" >
+    <div class="row justify-content-between">
+      <div class="col-6">
+        <table style="text-align: center;">
+          <thead style="background-color: #DAEEF3;">
+            <tr>
+              <td class="w-50">Name</td>
+              <td class="w-50">
+                Program Goals
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="w-50">&#160;</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50" rowspan="4">&#160;</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">&#160;</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+  
+        <div class="r4" style="margin-bottom: 5px;">
+          <table style="text-align: center;">
+            <tr>
+              <td class=" w-auto border-right-0">
+                <h5 class="rotted mb-0  ">R1</h5>
+              </td>
+              <td class="p-0 border-left-0 border-bottom-0">
+                <table class="border-0">
+                  <thead style="background-color: #DAEEF3;">
+                    <tr>
+                      <td class="tr0 border-top-0">
+                        Foam Roller/Ball
+                      </td>
+                      <td class="tr0 border-top-0">
+                        Frequency
+                      </td>
+                      <td class="tr0 border-top-0">
+                        Time
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>  
+                    <tr *ngFor="let item of datasetReady?.programChartData[0]?.R1">
+                      <td class="tr0  ">
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                          {{setExcerciseValue(item)}}
+                        </ng-container>
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                          {{item?.subcategory?.name}} 
+                        </ng-container>
+                      </td>
+                      <td class="tr0  ">
+                        {{item?.frequency}}
+                      </td>
+                      <td class="tr0  ">
+                        <span>{{item?.time}}</span>
+                      </td>
+                    </tr>
+  
+                    <!-- <tr>
+                      <td class="tr0  ">
+                        IT Band
+                      </td>
+                      <td class="tr0  ">
+                        Daily
+                      </td>
+                      <td class="tr0  ">  
+                        <span>30-60s</span>  
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td class="tr0 td5">
+                        Baseball/Tennis Ball - Adductors
+                      </td>
+                      <td class="tr0 td6">
+                        Daily
+                      </td>
+                      <td class="tr0 td7">  
+                        <span>30-60s</span>  
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td class="tr0 td5">
+                        &nbsp;
+                      </td>
+                      <td class="tr0 td6">
+                        Daily
+                      </td>
+                      <td class="tr0 td7">  
+                        <span>30-60s</span>  
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td class="tr0 td5">
+                        &nbsp;
+                      </td>
+                      <td class="tr0 td6">
+                        Daily
+                      </td>
+                      <td class="tr0 td7">  
+                        <span>30-60s</span>  
+                      </td>
+                    </tr> -->  
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>  
+      </div>
+  
+      <div class="col-5">
+        <table style="text-align: center;">
+          <thead style="background-color: #DAEEF3;">
+            <tr>
+              <td class="w-50">Check-in Scavenger Hunt</td>
+              <td class="w-50">
+                Done
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="w-50">Selfie with Ollie</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Selfie on a bike/Elliptical (Coat Rack)</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Selfie with a Friend you brought to BEST</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Palm of Protein Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Deadlift Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">2 Fists of Veggies Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Sled Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Cupped Handful of Carbs Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Selfie Saying no to Sugar</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Core Exercise Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">COMPLETE Rest Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>
+            <tr>
+              <td class="w-50">Playing/working Outside Check-in</td>
+              <td class="w-50">&#160;</td>
+            </tr>  
+          </tbody>
+        </table>
+      </div>  
+  
+      <div class="col-12">
+        <div class="r4" style="margin-bottom: 5px;">
+          <table style="text-align: center;">
+            <tr>
+              <td class=" w-auto border-right-0">
+                <h5 class="rotted mb-0  ">R2</h5>
+              </td>
+              <td class="p-0 border-left-0 border-bottom-0">
+                <table class="border-0">
+                  <thead style="background-color: #DAEEF3;">
+                    <tr>
+                      <td class="tr0 border-top-0">
+                        Exercises
+                      </td>
+                      <td class="tr0 border-top-0">
+                        Sets and Reps
+                      </td>
+                      <td class="tr0 border-top-0">
+                        Comments
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of datasetReady?.programChartData[0]?.R2">
+                      <td class="   ">
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                          {{setExcerciseValue(item)}}
+                        </ng-container>
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                          {{item?.subcategory?.name}} 
+                        </ng-container>
+                      </td>
+                      <td class="   ">
+                        {{item?.sets_reps}}
+                      </td>
+                      <td class="   ">
+                        {{item?.comment}}
+                      </td>
+                    </tr>  
+                    <!-- <tr>
+                      <td class="   ">
+                        Low Oblique Sit Plank
+                      </td>
+                      <td class="   ">
+                        2x5 breaths
+                      </td>
+                      <td class="   ">
+                        Wide ribcage angles do this one
+                      </td>
+                    </tr> -->
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="r4" style="margin-bottom: 5px;">
+          <table style="text-align: center;">
+            <tr>
+              <td class=" w-auto border-right-0">
+                <h5 class="rotted mb-0  ">R3</h5>
+              </td>
+              <td class="p-0 border-left-0 border-bottom-0">
+                <table class="border-0">
+                  <thead style="background-color: #DAEEF3;">
+                    <tr>
+                      <td class="tr0 border-top-0">
+                        Exercises
+                      </td>
+                      <td class="tr0 border-top-0">
+                        Sets and Reps
+                      </td>
+                      <td class="tr0 border-top-0">
+                        Comments
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of datasetReady?.programChartData[0]?.R3; let i = index">
+                      <td class="   ">
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                          {{setExcerciseValue(item)}}
+                        </ng-container>
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                          {{item?.subcategory?.name}} 
+                        </ng-container>
+                      </td>
+                      <td class="   ">
+                        {{item?.sets_reps}}
+                      </td>
+                      <td class="   ">
+                        <a>{{item?.comments}}</a>
+                      </td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- new page -->
+  <div class="html2pdf__page-break"></div>
+  <ng-container *ngFor="let dataForPdf of datasetReady?.programChartData; let index=index">
+    <ng-container *ngIf="index > 0">
+        <!-- R4 -->
+        <div class="r4" style="margin-bottom: 5px;">
+          <h5 class="mb-0 font-bold">Day {{index}}</h5>
+          <table>
+            <tr>
+              <td class=" w-auto">
+                <h5 class="rotted mb-0  ">R4</h5>
+              </td>
+              <td class="p-0 border-bottom-0">
+                <table class="border-0">
+                  <thead style="background-color: #DAEEF3;">
+                    <tr>
+                      <td class="border-left-0 border-top-0 w-auto">&#160;</td>
+                      <!-- <td class="border-top-0 w-auto">&#160;</td> -->
+                      <td class="border-top-0" align="center">Exercise</td>
+                      <td class="border-top-0" align="center">Rest</td>
+                      <td class="border-top-0 white-space" align="center">Week 1</td>
+                      <td class="border-top-0 white-space" align="center">Week 2</td>
+                      <td class="border-top-0 white-space" align="center">Week 3</td>
+                      <td class="border-top-0 white-space" align="center">Week 4</td>
+                      <td class="border-top-0 white-space"><span style="width: 150px; display: block;"
+                          align="center">Comments</span></td>
+                    </tr>
+                  </thead>  
+                  <ng-container *ngFor="let item of dataForPdf?.R4; let i = index">
+                    <tr>
+                      <td class="border-left-0 w-auto" rowspan="2">
+                        {{item?.sequence}}
+                      </td>
+                      <!-- <td class="w-auto">
+                        L1
+                      </td> -->
+                      <td>
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                          {{setExcerciseValue(item)}}
+                        </ng-container>
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                          {{item?.subcategory?.name}} 
+                        </ng-container>
+                      </td>
+                      <td align="center" rowspan="2">
+                        {{item?.rest}}
+                      </td>
+                      <td align="center" bgcolor="#92CDDC">
+                        {{item?.week1}}
+                      </td>
+                      <td align="center" bgcolor="#92CDDC">
+                        {{item?.week2}}
+                      </td>
+                      <td align="center" bgcolor="#92CDDC">
+                        {{item?.week3}}
+                      </td>
+                      <td align="center" bgcolor="#92CDDC">
+                        {{item?.week4}}
+                      </td>
+                      <td align="center" bgcolor="#92CDDC">
+                        {{item?.comment}}
+                      </td>
+                    </tr>
+                    <tr>  
+                      <!-- <td class="w-auto">
+                        L2
+                      </td>
+                      <td>
+                        2-Point MB Punch
+                      </td> -->  
+                      <!-- <td>  
+                      </td>
+                      <td>  
+                      </td>
+                      <td>  
+                      </td>
+                      <td>  
+                      </td>   -->
+                    </tr>
+                  </ng-container>
+        
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- R5 -->
+        <div class="r5">
+          <table>
+            <tr>
+              <td class=" w-auto">
+                <h5 class="rotted mb-0  ">R5</h5>
+              </td>
+              <td class="p-0 border-bottom-0">
+                <table class="border-0">
+                  <thead style="background-color: #DAEEF3;">
+                    <tr>
+                      <td class="border-left-0 border-top-0 w-auto">&#160;</td>
+                      <!-- <td class="border-top-0 w-auto">&#160;</td> -->
+                      <td class="border-top-0" align="center">Exercise</td>
+                      <td class="border-top-0" align="center">Tempo</td>
+                      <td class="border-top-0" align="center">Rest</td>
+                      <td class="border-top-0 white-space" align="center">Week 1</td>
+                      <td class="border-top-0 white-space" align="center">Week 2</td>
+                      <td class="border-top-0 white-space" align="center">Week 3</td>
+                      <td class="border-top-0 white-space" align="center">Week 4</td>
+                      <td class="border-top-0 white-space"><span style="width: 150px; display: block;"
+                          align="center">Comments</span></td>
+                    </tr>
+                  </thead>  
+                  <ng-container *ngFor="let item of dataForPdf?.R5; let i = index">
+                    <tr>
+                      <td class="border-left-0 w-auto" rowspan="6">
+                        {{item?.sequence}}
+                      </td>
+                      <!-- <td class="w-auto" rowspan="2">
+                        L1
+                      </td> -->
+                      <td rowspan="2">
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                          {{setExcerciseValue(item)}}
+                        </ng-container>
+                        <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                          {{item?.subcategory?.name}} 
+                        </ng-container>
+                      </td>
+                      <td align="center" rowspan="6">
+                        {{item?.tempo}} 
+                      </td>
+                      <td align="center" rowspan="6">
+                        {{item?.rest ? '0-' + item?.rest + 's' : ''}}
+                      </td>
+                      <td align="center" bgcolor="#92CDDC">
+                        {{item?.week1}}
+                      </td>
+                      <td align="center" bgcolor="#92CDDC">
+                        {{item?.week2}}
+                      </td>
+                      <td align="center" bgcolor="#92CDDC">
+                        {{item?.week3}}
+                      </td>
+                      <td align="center" bgcolor="#92CDDC">
+                        {{item?.week4}}
+                      </td>
+                      <td align="center" bgcolor="#92CDDC">
+                        {{item?.comment}}
+                      </td>  
+                    </tr>
+                    <tr>
+                      <!-- <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td>
+                    </tr> -->
+                    <tr>  
+                      <!-- <td class="w-auto" rowspan="2">
+                        L2
+                      </td>
+                      <td rowspan="2">
+                        2-KB Deadlift + Row
+                      </td> -->  
+                      <!-- <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td> -->
+        
+                    </tr>
+                    <tr>
+                      <!-- <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td> -->
+                    </tr>  
+                    <tr>
+                      <!-- <td class="w-auto" rowspan="2">
+                        L3
+                      </td>
+                      <td rowspan="2">
+                        &#160;
+                      </td>  
+                      <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td> -->
+                    </tr>  
+                    <tr>
+                      <!-- <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td>
+                      <td>
+                        &#160;
+                      </td> -->
+                    </tr>
+                  </ng-container>
+        
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>  
+    </ng-container>
+  </ng-container>  
+  <div>
+    <!-- <table style="text-align: center;" class="table-width-auto">
+      <thead style="background-color: #DAEEF3;">
+        <tr>
+          <td>Name</td>
+          <td>
+            Program Goals
+          </td>
+          <td>
+            Assessment Results
+          </td>
+          <td>
+            Coaches Notes:
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cal Aulizia</td>
+          <td>Get strong</td>
+          <td>&#160;</td>
+          <td>&#160;</td>
+        </tr>
+        <tr>
+          <td rowspan="4">&#160;</td>
+          <td>Increase Jumping capacity</td>
+          <td>&#160;</td>
+          <td>&#160;</td>
+        </tr>
+        <tr>
+           <td>Build Upper Body Muscle Mass</td>
+          <td>&#160;</td>
+          <td>&#160;</td>
+        </tr>
+        <tr>
+           <td>&#160;</td>
+          <td>&#160;</td>
+          <td>&#160;</td>
+        </tr>  
+      </tbody>
+    </table> -->
+  </div>
+</div>
+</ng-container>
+
+<!-- For gen-pop Individual Templates Pdf -->
+<ng-container *ngIf="dataType === 'gen-pop' && dataTemplate === 'Individual Templates'">
+  <div id="pdfData" style="display: none;" class="pdfGenerationClass">
+      <div class="" style="margin-bottom: 5px;">
+        <table style="text-align: center;" class="table-width-auto">
+          <thead style="background-color: #DAEEF3;">
+            <tr>
+              <td>Name</td>
+              <td>
+                Program Goals
+              </td>
+              <td>
+                Program Goals
+              </td>
+              <td class="">
+                Coaches Notes:
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cal Aulizia</td>
+              <td>Get strong</td>
+              <td>&#160;</td>
+              <td>&#160;</td>
+            </tr>
+            <tr>
+              <td rowspan="3">&#160;</td>
+              <td>Increase Jumping capacity</td>
+              <td>&#160;</td>
+              <td>&#160;</td>
+            </tr>
+            <tr>
+              <td>Build Upper Body Muscle Mass</td>
+              <td>&#160;</td>
+              <td>&#160;</td>
+            </tr>
+            <tr>
+              <td>&#160;</td>
+              <td>&#160;</td>
+              <td>&#160;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class=" " style="margin-bottom: 5px;">
+        <table style="text-align: center;">
+          <tr>
+            <td class=" w-auto border-right-0">
+              <h5 class="rotted mb-0  ">R1</h5>
+            </td>
+            <td class="p-0 border-left-0 border-bottom-0">
+              <table class="border-0">
+                <thead style="background-color: #DAEEF3;">
+                  <tr>
+                    <td class="tr0 border-top-0  ">
+                      Foam Roller/Ball
+                    </td>
+                    <td class="tr0 border-top-0">
+                      Frequency
+                    </td>
+                    <td class="tr0 border-top-0">
+                      Time
+                    </td>
+                    <td class="tr0 border-top-0">
+                      <div style="width: 300px;">Comments</div>
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of datasetReady?.programChartData[0]?.R1">
+                    <td class="tr0  ">
+                      <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                        {{setExcerciseValue(item)}}
+                      </ng-container>
+                      <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                        {{item?.subcategory?.name}} 
+                      </ng-container>
+                    </td>
+                    <td class="tr0  ">
+                      {{item?.frequency}}
+                    </td>
+                    <td class="tr0  ">
+                      <span>{{item?.time}}</span>
+                    </td>
+                  <td class="tr0  ">
+                    <span>{{item?.comment}}</span>
+                  </td>
+                  </tr>    
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+      
+      <div class=" " style="margin-bottom: 5px;">
+        <table style="text-align: center;" class="table-width-auto">
+          <tr>
+            <td class="  border-right-0" style="width: 34px;">
+              <h5 class="rotted mb-0  ">R2</h5>
+            </td>
+            <td class="p-0 border-left-0 border-bottom-0">
+              <table class="border-0">
+                <thead style="background-color: #DAEEF3;">
+                  <tr>
+                    <td class="tr0 border-top-0  ">
+                      Exercises
+                    </td>
+                    <td class="tr0 border-top-0">
+                      Sets and Reps
+                    </td>
+                    <td class="tr0 border-top-0">
+                      Comments
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of datasetReady?.programChartData[0]?.R2">
+                    <td class="   ">
+                      <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                        {{setExcerciseValue(item)}}
+                      </ng-container>
+                      <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                        {{item?.subcategory?.name}} 
+                      </ng-container>
+                    </td>
+                    <td class="   ">
+                      {{item?.sets_reps}}
+                    </td>
+                    <td class="   ">
+                      {{item?.comment}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+      
+      <div class=" " style="margin-bottom: 5px;">
+        <table style="text-align: center;" class="table-width-auto">
+          <tr>
+            <td class="  border-right-0" style="width: 34px;">
+              <h5 class="rotted mb-0  ">R3</h5>
+            </td>
+            <td class="p-0 border-left-0 border-bottom-0">
+              <table class="border-0">
+                <thead style="background-color: #DAEEF3;">
+                  <tr>
+                    <td class="tr0 border-top-0  ">
+                      Exercises
+                    </td>
+                    <td class="tr0 border-top-0">
+                      Sets and Reps
+                    </td>
+                    <td class="tr0 border-top-0">
+                      Comments
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of datasetReady?.programChartData[0]?.R3; let i = index">
+                    <td class="   ">
+                      <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                        {{setExcerciseValue(item)}}
+                      </ng-container>
+                      <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                        {{item?.subcategory?.name}} 
+                      </ng-container>
+                    </td>
+                    <td class="   ">
+                      {{item?.sets_reps}}
+                    </td>
+                    <td class="   ">
+                      <a>{{item?.comments}}</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>    
+      <hr>    
+
+      <ng-container *ngFor="let dataForPdf of datasetReady?.programChartData; let index=index">
+        <ng-container *ngIf="index > 0">
+          <!-- new page -->
+          <div class="html2pdf__page-break"></div>
+          <!-- R4 -->
+          <div class="r4" style="margin-bottom: 5px;">
+            <h5 class="mb-0 font-bold">Day {{index}}</h5>
+            <table>
+              <tr>
+                <td class=" w-auto">
+                  <h5 class="rotted mb-0  ">R4</h5>
+                </td>
+                <td class="p-0 border-bottom-0">
+                  <table class="border-0">
+                    <thead style="background-color: #DAEEF3;">
+                      <tr>
+                        <td class="border-left-0 border-top-0 w-auto">&#160;</td>
+                        <td class="border-top-0" align="center">Exercise</td>
+                        <td class="border-top-0" align="center">Rest</td>
+                        <td class="border-top-0 white-space" align="center">Week 1</td>
+                        <td class="border-top-0 white-space" align="center">Week 2</td>
+                        <td class="border-top-0 white-space" align="center">Week 3</td>
+                        <td class="border-top-0 white-space" align="center">Week 4</td>
+                        <td class="border-top-0 white-space"><span style="width: 150px; display: block;"
+                            align="center">Comments</span></td>
+                      </tr>
+                    </thead>
+          
+          
+          
+                    <ng-container *ngFor="let item of dataForPdf?.R4; let i = index">
+                      <tr>
+                        <td class="border-left-0 w-auto" rowspan="2">
+                          {{item?.sequence}}
+                        </td>
+                        <!-- <td class="w-auto">
+                          L1
+                        </td> -->
+                        <td>
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                            {{setExcerciseValue(item)}}
+                          </ng-container>
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                            {{item?.subcategory?.name}} 
+                          </ng-container>
+                        </td>
+                        <td align="center" rowspan="2">
+                          {{item?.rest}}
+                        </td>
+                        <td align="center" bgcolor="#92CDDC">
+                          {{item?.week1}}
+                        </td>
+                        <td align="center" bgcolor="#92CDDC">
+                          {{item?.week2}}
+                        </td>
+                        <td align="center" bgcolor="#92CDDC">
+                          {{item?.week3}}
+                        </td>
+                        <td align="center" bgcolor="#92CDDC">
+                          {{item?.week4}}
+                        </td>
+                        <td align="center" bgcolor="#92CDDC">
+                          {{item?.comment}}
+                        </td>
+                      </tr>
+                      <tr>  
+                        <!-- <td class="w-auto">
+                          L2
+                        </td>
+                        <td>
+                          2-Point MB Punch
+                        </td> -->  
+                        <!-- <td>  
+                        </td>
+                        <td>  
+                        </td>
+                        <td>  
+                        </td>
+                        <td>  
+                        </td>   -->
+                      </tr>
+                    </ng-container>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+        
+          <!-- R5 -->
+          <div class="r5" style="margin-bottom: 5px;">
+            <table>
+              <tr>
+                <td class=" w-auto">
+                  <h5 class="rotted mb-0  ">R5</h5>
+                </td>
+                <td class="p-0 border-bottom-0">
+                  <table class="border-0">
+                    <thead style="background-color: #DAEEF3;">
+                      <tr>
+                        <td class="border-left-0 border-top-0 w-auto">&#160;</td>
+                        <td class="border-top-0" align="center">Exercise</td>
+                        <td class="border-top-0" align="center">Tempo</td>
+                        <td class="border-top-0" align="center">Rest</td>
+                        <td class="border-top-0 white-space" align="center">Week 1</td>
+                        <td class="border-top-0 white-space" align="center">Week 2</td>
+                        <td class="border-top-0 white-space" align="center">Week 3</td>
+                        <td class="border-top-0 white-space" align="center">Week 4</td>
+                        <td class="border-top-0 white-space"><span style="width: 150px; display: block;"
+                            align="center">Comments</span></td>
+                      </tr>
+                    </thead>
+          
+          
+          
+                    <ng-container *ngFor="let item of dataForPdf?.R5; let i = index">
+                      <tr>
+                        <td class="border-left-0 w-auto" rowspan="6">
+                          {{item?.sequence}}
+                        </td>
+                        <!-- <td class="w-auto" rowspan="2">
+                          L1
+                        </td> -->
+                        <td rowspan="2">
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                            {{setExcerciseValue(item)}}
+                          </ng-container>
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                            {{item?.subcategory?.name}} 
+                          </ng-container>
+                        </td>
+                        <td align="center" rowspan="6">
+                          {{item?.tempo}} 
+                        </td>
+                        <td align="center" rowspan="6">
+                          {{item?.rest ? '0-' + item?.rest + 's' : ''}}
+                        </td>
+                        <td align="center" bgcolor="#92CDDC">
+                          {{item?.week1}}
+                        </td>
+                        <td align="center" bgcolor="#92CDDC">
+                          {{item?.week2}}
+                        </td>
+                        <td align="center" bgcolor="#92CDDC">
+                          {{item?.week3}}
+                        </td>
+                        <td align="center" bgcolor="#92CDDC">
+                          {{item?.week4}}
+                        </td>
+                        <td align="center" bgcolor="#92CDDC">
+                          {{item?.comment}}
+                        </td>  
+                      </tr>
+                      <tr>
+                        <!-- <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td>
+                      </tr> -->
+                      <tr>  
+                        <!-- <td class="w-auto" rowspan="2">
+                          L2
+                        </td>
+                        <td rowspan="2">
+                          2-KB Deadlift + Row
+                        </td> -->  
+                        <!-- <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td> -->
+          
+                      </tr>
+                      <tr>
+                        <!-- <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td> -->
+                      </tr>  
+                      <tr>
+                        <!-- <td class="w-auto" rowspan="2">
+                          L3
+                        </td>
+                        <td rowspan="2">
+                          &#160;
+                        </td>  
+                        <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td> -->
+                      </tr>  
+                      <tr>
+                        <!-- <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td>
+                        <td>
+                          &#160;
+                        </td> -->
+                      </tr>
+                    </ng-container>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- R6 -->
+          <div class="r6" style="margin-bottom: 5px;">
+            <table class="">
+              <tr>
+                <td class=" w-auto border-right-0">
+                  <h5 class="rotted mb-0  ">R6</h5>
+                </td>
+                <td class="p-0 border-bottom-0">
+                  <table class="border-0">
+                    <thead style="background-color: #DAEEF3;">
+                      <tr>
+                        <td class="border-top-0 w-50" align="center">Exercise</td>
+                        <td class="border-top-0 w-auto" align="center">Work</td>
+                        <td class="border-top-0 w-auto" align="center">Rest</td>
+                        <td class="border-top-0 w-auto" align="center">Week 1</td>
+                        <td class="border-top-0 w-auto" align="center">Week 2</td>
+                        <td class="border-top-0 w-auto" align="center">Week 3</td>
+                        <td class="border-top-0 w-auto" align="center">Week 4</td>
+                      </tr>
+                    </thead>
+          
+                    <ng-container *ngFor="let item of dataForPdf?.R6; let i = index">
+                      <tr>
+                        <td class="w-50">
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length > 0">
+                            {{setExcerciseValue(item)}}
+                          </ng-container>
+                          <ng-container *ngIf="item?.subcategory?.exercisesub?.length === 0">
+                            {{item?.subcategory?.name}} 
+                          </ng-container>
+                        </td>
+                        <td class="w-auto">&#160;</td>
+                        <td class="w-auto">
+                          {{item?.rest}}
+                        </td>
+          
+                        <td bgcolor="#92CDDC" class="w-auto">
+                          {{item?.week1}}
+                        </td>
+                        <td bgcolor="#92CDDC" class="w-auto">
+                          {{item?.week2}}
+                        </td>
+                        <td bgcolor="#92CDDC" class="w-auto">
+                          {{item?.week3}}
+                        </td>
+                        <td bgcolor="#92CDDC" class="w-auto">
+                          {{item?.week4}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="  w-50" style="background-color: #DAEEF3; padding: 30px 15px; text-align: center;">
+                          Comments
+                        </td>
+                        <td colspan="6">
+                          {{item?.comment}}
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </ng-container>
+      </ng-container>    
+  </div>
+</ng-container>
+

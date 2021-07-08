@@ -1,0 +1,168 @@
+.button-group {
+  button {
+
+    &.btn-admin-login {
+
+      // background: #007297;
+      span.text {
+        background: #007297;
+      }
+
+      span.flip {
+        background: #002e3d;
+      }
+    }
+
+    &.btn-user-login {
+      span.text {
+        background: #002e3d;
+      }
+
+      span.flip {
+        background: #007297;
+      }
+
+      margin-left: 25px;
+    }
+  }
+}
+
+.header {
+  padding: 10px 0;
+
+  .logo {
+    cursor: pointer;
+
+    img {
+      user-select: none;
+      max-width: 100%;
+    }
+  }
+}
+
+.menu {
+  width: 100%;
+
+  ul {
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 15px 0 0 0;
+
+    li {
+      display: flex;
+      // padding: 15px 10px;
+      padding: 15px 10px 0 10px;
+
+      a {
+        padding: 0 10px;
+        color: #555658;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+
+        &.active,
+        &:hover {
+          color: #007197;
+        }
+      }
+
+      &:last-child {
+        padding-right: 0;
+
+        a {
+          padding-right: 0;
+        }
+      }
+    }
+  }
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  border: solid 2px;
+  padding: 3px 10px 3px 15px;
+  border-radius: 3px;
+}
+
+.mobile-navigation {
+  display: none;
+}
+
+.mobile-trigger {
+  .mat-icon {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 767px) {
+  .navigation {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    background: #fff;
+    right: 0;
+    left: auto;
+    width: 90%;
+    min-height: 100vh;
+    bottom: 0;
+    top: 0;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .3);
+    // display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+
+    &.show {
+      display: flex;
+    }
+
+    .button-group {
+      display: block;
+      width: 100%;
+      order: 2;
+      height: 100%;
+      overflow: hidden;
+
+      button {
+        display: block;
+        margin: 1em auto;
+        width: 100%;
+        transform: none;
+
+        * {
+          transform: none;
+        }
+      }
+    }
+
+    .menu {
+
+      // height: 100%;
+      .mobile-trigger {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 10px;
+      }
+
+      ul {
+        li {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .toolbar {
+    align-items: center;
+  }
+
+  .mobile-navigation {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}

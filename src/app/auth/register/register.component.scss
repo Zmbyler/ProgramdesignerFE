@@ -1,0 +1,131 @@
+.outer-box {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.349);
+  box-shadow: 0px 56px 94px 0px rgba(0, 0, 0, 0.25);
+  max-width: 100%;
+  width: 43.125em;
+  padding: 10px;
+  margin: 0 auto;
+  transition: ease-in-out .3s;
+
+  .inner-box {
+    border: solid 1px rgb(183, 239, 255);
+    border-radius: 10px;
+    background-color: rgba(0, 18, 23, 0.502);
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    transition: ease-in-out .3s;
+
+
+  }
+}
+
+.bg {
+  background: url('../../../assets/images/bg-login.jpg');
+  background-repeat: no-repeat;
+  padding: 9.375em 0;
+  background-attachment: fixed;
+}
+
+.title {
+  max-width: 850px;
+  margin: 0 auto;
+  margin-bottom: 3em;
+
+  h2 {
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1.048;
+    text-align: center;
+    font-size: 2.625em;
+  }
+}
+
+form {
+  width: 100%;
+}
+
+.registerbox {
+  width: 100%;
+  padding: 2.813em 4.688em;
+
+  p {
+    color: rgb(160, 234, 247);
+    line-height: 1.733;
+    text-align: center;
+    font-size: 15px;
+    margin: 1.563em 0 0 0;
+
+    a {
+      text-decoration: underline;
+      color: rgb(160, 234, 247);
+      font-size: 15px;
+    }
+  }
+}
+
+.profile-image {
+  display: flex;
+  justify-content: center;
+
+  input {
+    display: none;
+  }
+
+  .circle {
+    width: 113px;
+    height: 113px;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    cursor: pointer;
+    // border: solid 5px #fff;
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+
+    .mat-icon {
+      color: #e4e4e4;
+      max-width: 82px;
+      margin-bottom: -10px;
+    }
+  }
+}
+
+
+
+.form-input {
+  margin-bottom: 15px;
+
+  label {
+    font-size: 15px;
+    font-family: "Roboto";
+    color: rgb(255, 255, 255);
+    line-height: 1.733;
+
+    .mat-icon {
+      margin-right: 5px;
+    }
+  }
+
+  input {
+    width: 100%;
+    border: none;
+    height: 60px;
+    padding: 0 15px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    font-size: 15px;
+    outline: none;
+  }
+}

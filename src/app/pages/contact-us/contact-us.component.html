@@ -1,0 +1,116 @@
+ <div class="bg">
+
+   <div class="container">
+     <div class="flex middle row start">
+       <div class="width-70 column">
+         <div class="title full-width  ">
+           <h2>
+             <strong>{{contactUsText?.name}}</strong>
+           </h2>
+           <p [innerHtml]="contactUsText?.short_description">
+             <!-- Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni enim doloremque, hic reprehenderit quasi
+             aliquid dolorem quae error sunt quaerat sapiente amet id suscipit dolor? Aperiam perspiciatis eos eveniet
+             inventore. -->
+           </p>
+         </div>
+         <div class="outer-box">
+           <div class="inner-box">
+
+             <form [formGroup]="form">
+               <div class="form-input">
+                 <label>
+                   Full Name
+                 </label>
+                 <input type="text" formControlName="name" autocomplete="new-password" required>
+                 <div class="alert error"
+                   *ngIf="form.controls.name.touched && form.controls.name.hasError('required')">
+                   Full Name is required.</div>
+               </div>
+               <div class="form-input">
+                <div class="flex row">
+                  <div class="column width-50">
+                    <label> Email </label>
+                    <input type="text" formControlName="email" autocomplete="new-password" required>
+                    <div class="alert error"
+                      *ngIf="form.controls.email.touched && form.controls.email.hasError('required')">
+                      Email is required.</div>
+                      <div class="alert error"
+                      *ngIf="form.controls.email.dirty && form.controls.email.hasError('pattern')">
+                      Enter a  valid email</div>
+                  </div>
+                  <div class="column width-50">
+                    <label> Query </label>
+                    <input type="text" formControlName="query" autocomplete="new-password" required>
+                    <div class="alert error"
+                      *ngIf="form.controls.query.touched && form.controls.query.hasError('required')">
+                      Query is required.</div>
+                  </div>
+                </div>
+              </div>
+               <div class="form-input">
+                 <label>
+                   Message
+                 </label>
+                 <textarea formControlName="message"></textarea>
+                 <!-- <input type="text" formControlName="email" autocomplete="new-password" required> -->
+                 <div class="alert error"
+                   *ngIf="form.controls.message.touched && form.controls.message.hasError('required')">
+                   Message is required.</div>
+                  <div class="alert error"
+                   *ngIf="form.controls.message.touched && form.controls.message.hasError('pattern')">
+                   Enter a valid message</div>
+               </div>
+
+
+
+               <div class="button text-center">
+                 <button type="submit" class="btn-white btn-flip" (click)="submit(form.value)">
+                   <span class="text"><span>
+                       Submit
+                     </span></span>
+                   <span class="flip black"></span>
+                 </button>
+               </div>
+               <div>
+               </div>
+             </form>
+           </div>
+         </div>
+       </div>
+       <div class="width-30 column">
+         <div class="__box">
+           <div class="outer-box">
+             <div class="inner-box small">
+               <ul>
+                 <li>
+                   <div class="form-input">
+                     <label>Address:</label>
+                     <p>
+                       {{contactUsText?.address}}
+                     </p>
+                   </div>
+                 </li>
+                 <li>
+                   <div class="form-input">
+                     <label>Email:</label>
+                     <p>
+                       <a href="mailTo:{{contactUsText?.email}}">{{contactUsText?.email}}</a>
+                     </p>
+                   </div>
+                 </li>
+                 <li>
+                   <div class="form-input">
+                     <label>Phone:</label>
+                     <p>
+                       <a href="tel:{{contactUsText?.phone}}">{{contactUsText?.phone}}</a>
+                     </p>
+                   </div>
+                 </li>
+               </ul>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>

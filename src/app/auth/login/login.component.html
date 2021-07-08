@@ -1,0 +1,47 @@
+<div class="bg">
+  <div class="flex middle">
+    <div class="outer-box">
+      <div class="inner-box">
+        <form [formGroup]="form" #loginForm>
+          <div class="form-input">
+            <label>
+              <mat-icon style="max-width: 13px;" svgIcon="login-user"></mat-icon> Enter Your Username
+            </label>
+            <input type="text" formControlName="email" autocomplete="new-password" required>
+            <div class="alert error" *ngIf="form.controls.email.touched && form.controls.email.hasError('required')">
+              Email address is required.</div>
+            <div class="alert error"
+              *ngIf="form.controls.email.dirty && form.controls.email.hasError('pattern')">
+              Enter a valid email</div>
+          </div>
+
+          <div class="form-input">
+            <label>
+              <mat-icon style="max-width: 11px;" svgIcon="password"></mat-icon> Enter Your Password
+            </label>
+            <input type="password" autocomplete="new-password" formControlName="password" required>
+            <div class="alert error"
+              *ngIf="form.controls.password.touched && form.controls.password.hasError('required')">
+              Password is required.</div>
+          </div>
+
+
+
+
+          <div class="button text-center">
+            <button type="submit" class="btn-white btn-flip" (click)="loginInit(form.value)">
+              <span class="text"><span>
+                  <mat-icon svgIcon="user-login"></mat-icon>GO!
+                </span></span>
+              <span class="flip black"></span>
+            </button>
+          </div>
+          <div>
+            <a [routerLink]="['/forgot-password']" routerLinkActive="active">Forgot Password?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

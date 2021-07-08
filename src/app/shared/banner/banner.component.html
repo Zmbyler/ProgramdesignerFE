@@ -1,0 +1,27 @@
+<div class="full-width-banner">
+  <div class="image" *ngIf="bannerData?.images?.length <= 1">
+    <img [src]="bannerData?.images[0]">
+    <div class="overlay">
+      <div class="content">
+        <div>
+          <h1>{{bannerData?.title}}</h1>
+          <p [innerHtml]="bannerData?.content">
+            <!-- {{bannerData?.content}} -->
+          </p>
+          <div *ngIf="bannerData?.buttonText !== '' && !(isLogedIn | async)">
+            <button class="btn-user-login btn-flip" [routerLink]="[bannerData?.buttonLink]">
+              <span class="text">
+                <span>
+                  <mat-icon svgIcon="user-login"></mat-icon>
+                  {{bannerData?.buttonText}}
+                </span>
+              </span>
+              <span class="flip"></span>
+            </button>
+            <!-- <a [routerLink]="[bannerData?.buttonLink]">{{bannerData?.buttonText}}</a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

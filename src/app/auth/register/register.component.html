@@ -1,0 +1,328 @@
+<!-- <div class="flex middle">
+  <div class="width-30">
+    <div class="box">
+      <h1>REGISTER</h1>
+      <form [formGroup]="form" #signupForm>
+
+        <mat-form-field class="full-width" appearance="outline">
+          <input matInput placeholder="First Name" required="true" formControlName="first_name">
+          <mat-error *ngIf="form.controls.first_name.touched && form.controls.first_name.hasError('required')">
+            First Name is required.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+          <input matInput placeholder="Last Name" required="true" formControlName="last_name">
+          <mat-error *ngIf="form.controls.last_name.touched && form.controls.last_name.hasError('required')">
+            Last Name is required.
+          </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field class="full-width" appearance="outline">
+          <input matInput placeholder="Email" required="true" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            formControlName="email">
+          <mat-error *ngIf="form.controls.email.touched && form.controls.email.hasError('required')">
+            Email address is required.
+          </mat-error>
+          <mat-error *ngIf="form.controls.email.touched && form.controls.email.hasError('pattern')">
+            Enter valid email address.
+          </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field class="full-width" appearance="outline">
+          <input type="password" (input)="matchPassword(form?.controls?.password, form?.controls?.confirmPassword)"
+            required="true" matInput placeholder="Password" autocomplete="new-password" formControlName="password">
+          <mat-error *ngIf="form.controls.password.touched && form.controls.password.hasError('required')">
+            Password is required.
+          </mat-error>
+
+          <mat-error *ngIf="form.controls.confirmPassword.dirty && form.controls.confirmPassword.hasError('noMatch')">
+            Password is not matched.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+          <input type="password" (input)="matchPassword(form?.controls?.password, form?.controls?.confirmPassword)"
+            required="true" matInput placeholder="Confirm Password" autocomplete="new-password"
+            formControlName="confirmPassword">
+          <mat-error
+            *ngIf="form.controls.confirmPassword.touched && form.controls.confirmPassword.hasError('required')">
+            Confirm Password is required.
+          </mat-error>
+
+          <mat-error *ngIf="form.controls.confirmPassword.dirty && form.controls.confirmPassword.hasError('noMatch')">
+            Password is not matched.
+          </mat-error>
+        </mat-form-field>
+
+        <div class="button">
+          <button type="submit" class="pxwidth-120" (click)="signup(form.value)" color="primary" mat-raised-button>Sign
+            Up</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="width-30">
+    <div class="flex center">
+      <h1>REGISTER</h1>
+    </div>
+  </div>
+</div> -->
+
+<div class="bg">
+  <div class="container">
+
+    <div class="title">
+      <h2 *ngIf="switchCase === 0">
+        Join thousands of fitness businesses
+        already using best
+      </h2>
+      <h2 *ngIf="switchCase === 1">
+        SETTINGS FOR YOUR BUSINESS
+      </h2>
+      <h2 *ngIf="switchCase === 2">
+        Fill out your profile
+      </h2>
+    </div>
+    <div class="outer-box">
+      <div class="inner-box">
+        <form [formGroup]="form">
+          <div class="registerbox">
+            <div [ngSwitch]="switchCase">
+
+              <ng-container *ngSwitchCase="0">
+                <div class="form-input">
+                  <label>Your Email Address*</label>
+                  <input type="text" formControlName="email">
+                  <div class="alert error"
+                    *ngIf="form.controls.email.touched && form.controls.email.hasError('required')">
+                    Email is required
+                  </div>
+                  <div class="alert error" *ngIf="form.controls.email.dirty && form.controls.email.hasError('email')">
+                    Enter a valid email address
+                  </div>
+                </div>
+
+                <div class="form-input">
+                  <label>Password* (Between 8-20 Characters)</label>
+                  <input type="password" formControlName="password">
+                  <div class="alert error"
+                    *ngIf="form.controls.password.touched && form.controls.password.hasError('required')">
+                    Password is required
+                  </div>
+                  <div class="alert error"
+                    *ngIf="form.controls.password.dirty && form.controls.password.hasError('minlength')">
+                    Password must be at least 8 characters long
+                  </div>
+                  <div class="alert error"
+                    *ngIf="form.controls.password.dirty && form.controls.password.hasError('maxlength')">
+                    Password would be maximum 20 characters
+                  </div>
+                </div>
+                <div class="form-input">
+                  <label>Your Business Name*</label>
+                  <input type="text" formControlName="business_name">
+                  <div class="alert error"
+                    *ngIf="form.controls.business_name.touched && form.controls.business_name.hasError('required')">
+                    Business Name is required
+                  </div>
+                  <div class="alert error"
+                    *ngIf="form.controls.business_name.dirty && form.controls.business_name.hasError('pattern')">
+                    Enter valid business name
+                  </div>
+                </div>
+                <div class="button text-center">
+                  <button type="submit" class="btn-white btn-flip" (click)="createMyAccount(form.value)">
+                    <span class="text"><span> CREATE MY ACCOUNT
+                      </span></span>
+                    <span class="flip black"></span>
+                  </button>
+                  <p>
+                    By clicking Create My Account and Signing Up,
+                    you agree to our <a [routerLink]="['/terms-of-services']">Terms Of Services</a>
+                    & <a [routerLink]="['/privacy-policy']">Privacy Policy</a>.
+                  </p>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="1">
+
+                <div class="form-input">
+                  <label>What is Your Time Zone?*</label>
+                  <div class="has-addon">
+                    <input type="text" formControlName="timezone" [matAutocomplete]="timezoneDropdown">
+                    <mat-icon *ngIf="!timezoneDropdown?.isOpen">keyboard_arrow_down
+                    </mat-icon>
+                    <mat-icon *ngIf="timezoneDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                  </div>
+                  <mat-autocomplete #timezoneDropdown="matAutocomplete">
+                    <mat-option *ngFor="let item of timeZoneList | async" [value]="item">
+                      (GMT {{getUTCOffset(item)}}) {{item}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <div class="alert error"
+                    *ngIf="form.controls.timezone.touched && form.controls.timezone.hasError('required')">
+                    Timezone is required
+                  </div>
+                </div>
+
+
+                <div class="form-input">
+                  <label>What Best Describes Your Business?*</label>
+                  <div class="has-addon">
+                    <input type="text" formControlName="business_description"
+                      [matAutocomplete]="describesBusinessDropdown">
+                    <mat-icon *ngIf="!describesBusinessDropdown?.isOpen">keyboard_arrow_down
+                    </mat-icon>
+                    <mat-icon *ngIf="describesBusinessDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                  </div>
+
+                  <mat-autocomplete (optionSelected)='textfield($event.option.value)'
+                    #describesBusinessDropdown="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let item of businessDescription | async" [value]="item">{{item.name}}
+                    </mat-option>
+                  </mat-autocomplete>
+
+                  <div class="alert error"
+                    *ngIf="form.controls.business_description.touched && form.controls.business_description.hasError('required')">
+                    Choose a description for your business
+                  </div>
+                  <ng-container *ngIf="business_description_other_display">
+                    <textarea formControlName="business_description_other" rows="4" style="width: 100%;"></textarea>
+                    <div class="alert error"
+                      *ngIf="form.controls.business_description_other.touched && form.controls.business_description_other.hasError('required')">
+                      Enter a description for your business
+                    </div>
+                  </ng-container>
+                </div>
+
+                <div class="form-input">
+                  <label>What Best Describes Your Business?*</label>
+                  <div class="has-addon">
+                    <input type="text" formControlName="description" [matAutocomplete]="describesMeDropdown">
+                    <mat-icon *ngIf="!describesMeDropdown?.isOpen">keyboard_arrow_down
+                    </mat-icon>
+                    <mat-icon *ngIf="describesMeDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                  </div>
+
+                  <mat-autocomplete (optionSelected)='textfield2($event.option.value)'
+                    #describesMeDropdown="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let item of bestDescription | async" [value]="item">{{item.name}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <div class="alert error"
+                    *ngIf="form.controls.description.touched && form.controls.description.hasError('required')">
+                    Choose a description for you.
+                  </div>
+                  <ng-container *ngIf="description_other_display">
+                    <textarea formControlName="description_other" rows="4" style="width: 100%;"></textarea>
+                    <div class="alert error"
+                      *ngIf="form.controls.description_other.touched && form.controls.description_other.hasError('required')">
+                      Enter a description for you.
+                    </div>
+                  </ng-container>
+                </div>
+
+                <div class="button text-center">
+                  <button type="submit" class="btn-white btn-flip" (click)="continue(2, form.value)">
+                    <span class="text"><span> CONTINUE
+                      </span></span>
+                    <span class="flip black"></span>
+                  </button>
+                </div>
+
+
+              </ng-container>
+              <ng-container *ngSwitchCase="2">
+                <div class="profile-image">
+                  <input type="file" #profileImageInput (change)="profileImageChange($event)">
+                  <div class="circle" (click)="profileImageInput.click()">
+                    <ng-container *ngIf="profileImage !== '' && profileImage !== undefined">
+                      <img [src]="profileImage" alt="">
+                    </ng-container>
+                    <ng-container *ngIf="profileImage === '' || profileImage === undefined">
+                      <mat-icon svgIcon="profileImage"></mat-icon>
+                    </ng-container>
+
+                  </div>
+                </div>
+
+                <div class="form-input">
+                  <label>First Name*</label>
+                  <input type="text" formControlName="first_name">
+                  <div class="alert error"
+                    *ngIf="form.controls.first_name.touched && form.controls.first_name.hasError('required')">
+                    First name is required
+                  </div>
+                  <div class="alert error"
+                    *ngIf="form.controls.first_name.dirty && form.controls.first_name.hasError('email')">
+                    Enter a valid first name
+                  </div>
+                </div>
+
+                <div class="form-input">
+                  <label>Last Name*</label>
+                  <input type="text" formControlName="last_name">
+                  <div class="alert error"
+                    *ngIf="form.controls.last_name.touched && form.controls.last_name.hasError('required')">
+                    Last name is required
+                  </div>
+                  <div class="alert error"
+                    *ngIf="form.controls.last_name.dirty && form.controls.last_name.hasError('email')">
+                    Enter a valid last name
+                  </div>
+                </div>
+
+                <div class="form-input">
+                  <label>Country*</label>
+                  <div class="has-addon">
+                    <input type="text" formControlName="country" [matAutocomplete]="countryDropdown">
+                    <mat-icon *ngIf="!countryDropdown?.isOpen">keyboard_arrow_down
+                    </mat-icon>
+                    <mat-icon *ngIf="countryDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                  </div>
+
+                  <mat-autocomplete #countryDropdown="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let item of countryList | async" [value]="item">{{item.name}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <div class="alert error"
+                    *ngIf="form.controls.country.touched && form.controls.country.hasError('required')">
+                    Country name is required
+                  </div>
+                </div>
+
+                <div class="form-input">
+                  <label>City*</label>
+                  <input type="text" formControlName="city">
+                  <div class="alert error"
+                    *ngIf="form.controls.city.touched && form.controls.city.hasError('required')">
+                    city name is required
+                  </div>
+                  <div class="alert error" *ngIf="form.controls.city.dirty && form.controls.city.hasError('pattarn')">
+                    Enter a valid city name
+                  </div>
+                </div>
+                <div class="button text-center">
+                  <button type="submit" class="btn-white btn-flip" (click)="continue(3, form.value)">
+                    <span class="text"><span> CONTINUE
+                      </span></span>
+                    <span class="flip black"></span>
+                  </button>
+                </div>
+
+              </ng-container>
+
+            </div>
+
+
+          </div>
+
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+.outer-box {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.349);
+  box-shadow: 0px 56px 94px 0px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 690px;
+  padding: 10px;
+  margin: 0 auto;
+
+  .inner-box {
+    border: solid 1px rgb(183, 239, 255);
+    border-radius: 10px;
+    background-color: rgba(0, 18, 23, 0.502);
+    padding: 3.5em 4.688em;
+  }
+}
+
+.bg {
+  background: url('../../../assets/images/bg-login.jpg');
+  background-repeat: no-repeat;
+  padding: 9.375em 0;
+}
+
+.form-input {
+  margin-bottom: 15px;
+
+  label {
+    font-size: 15px;
+    font-family: "Roboto";
+    color: rgb(255, 255, 255);
+    line-height: 1.733;
+
+    .mat-icon {
+      margin-right: 5px;
+    }
+  }
+
+  input {
+    width: 100%;
+    border: none;
+    height: 60px;
+    padding: 0 15px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    font-size: 15px;
+    outline: none;
+  }
+}

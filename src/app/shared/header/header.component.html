@@ -1,0 +1,131 @@
+<!-- <mat-toolbar>
+  <div class=" full-width flex middle" [class.justify]="isLoggedIn">
+    <a mat-menu-item [routerLink]="['/home']" routerLinkActive="active">HOME</a>
+    <ng-container *ngIf="!isLoggedIn">
+      <a mat-menu-item [routerLink]="['/login']" routerLinkActive="active">LOGIN</a>
+      <a mat-menu-item [routerLink]="['/register']" routerLinkActive="active">REGISTER</a>
+    </ng-container>
+    <ng-container *ngIf="isLoggedIn">
+      <div class="flex middle loggedBox" [matMenuTriggerFor]="loggedMenu">
+        <div class="userimg flex center middle pxwidth-40">
+          <mat-icon>person</mat-icon>
+        </div>
+        <span class="pxwidth-10"></span>
+        <div class="name">{{username}}</div>
+        <span class="pxwidth-10"></span>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </div>
+    </ng-container>
+  </div>
+</mat-toolbar>
+<mat-menu #loggedMenu="matMenu" class="pxwidth-200">
+  <a mat-menu-item [routerLink]="['/user/dashboard']" routerLinkActive="active">USER</a>
+  <a mat-menu-item [routerLink]="['/user/profile']" routerLinkActive="active">PROFILE</a>
+  <a mat-menu-item (click)="logout()">LOGOUT</a>
+</mat-menu>
+ -->
+
+
+<header id="header" class="header">
+  <div class="container">
+    <div class="flex justify toolbar">
+      <div class="width-30">
+        <a class="logo" [routerLink]="['/home']">
+          <img src="./assets/images/logo.png">
+        </a>
+      </div>
+      <div class="width-70">
+        <div class="mobile-navigation">
+          <button class="mobile-trigger" (click)="mobileTrigger('show', navigation)">
+            <mat-icon>dehaze</mat-icon>
+          </button>
+        </div>
+        <div class="navigation" #navigation>
+          <div class="button-group flex right">
+
+            <ng-container *ngIf="!isLoggedIn">
+              <!-- <button class="btn-admin-login btn-flip" [routerLink]="['/login']">
+                <span class="text">
+                  <span>
+                    <mat-icon style="max-width: 14px;" svgIcon="admin-login"></mat-icon>
+                    Administration Login
+                  </span>
+                </span>
+                <span class="flip"></span>
+              </button> -->
+              <button class="btn-user-login btn-flip" [routerLink]="['/register']">
+                <span class="text"><span>
+                    <mat-icon svgIcon="user-login"></mat-icon>Sign Up
+                  </span></span>
+                <span class="flip"></span>
+              </button>
+              <button class="btn-user-login btn-flip" [routerLink]="['/login']">
+                <span class="text"><span>
+                    <mat-icon svgIcon="user-login"></mat-icon>User Login
+                  </span></span>
+                <span class="flip"></span>
+              </button>
+            </ng-container>
+            <ng-container *ngIf="isLoggedIn">
+              <div class="user-profile" [matMenuTriggerFor]="userMenu">
+                {{username}} <mat-icon>keyboard_arrow_down</mat-icon>
+              </div>
+            </ng-container>
+
+
+          </div>
+          <div class="menu">
+            <div class="mobile-navigation">
+              <button class="mobile-trigger" (click)="mobileTrigger('hidden', navigation)">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+            <ul class="flex right middle">
+              <li>
+                <a [routerLink]="['/home']" routerLinkActive="active">Home</a>
+              </li>
+              <li>
+                <a [routerLink]="['/about-us']" routerLinkActive="active">About Us</a>
+              </li>
+              <li>
+                <a [routerLink]="['/blog']" routerLinkActive="active">Blog</a>
+              </li>
+              <li>
+                <a [matMenuTriggerFor]="trainingMenu">Training
+                  <mat-icon svgIcon="down-arrow" style="max-width: 12px; margin-left: 3px; vertical-align: middle;">
+                  </mat-icon>
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/contact-us']" routerLinkActive="active">Contact Us</a>
+              </li>
+              <li>
+                <a [routerLink]="['/best-inner-circle']" routerLinkActive="active">BEST Inner Circle</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<mat-menu #trainingMenu="matMenu" class="pxwidth-200">
+  <a mat-menu-item routerLinkActive="active">Youth Training</a>
+  <a mat-menu-item routerLinkActive="active">Adult Training </a>
+  <!-- <a mat-menu-item (click)="logout()">LOGOUT</a> -->
+</mat-menu>
+
+
+
+<mat-menu #userMenu="matMenu" class="pxwidth-200">
+  <a mat-menu-item [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a>
+  <a mat-menu-item *ngIf="role === 'coach'" [routerLink]="['/program-templates']" routerLinkActive="active">Program Templates</a>
+  <a mat-menu-item *ngIf="role === 'coach'" [routerLink]="['/my-programs']" routerLinkActive="active">My Programs</a>
+  <a mat-menu-item [routerLink]="['/change-password']" routerLinkActive="active">Change Password</a>
+
+  <!-- <a mat-menu-item routerLinkActive="active">Adult Training </a> -->
+  <a mat-menu-item (click)="logout()">LOGOUT</a>
+</mat-menu>

@@ -1,0 +1,160 @@
+
+<div class="cmn-gap container innerpage-body">
+  <div class="progr-temp-main-row">
+    <div class="progr-temp-main-lft">
+      <div class="text-center button progr-temp-main-top">
+        <h1>Program Templates</h1>
+        <!-- Add new template button -->
+        <button class="btn-black btn-flip" (click)="addNewTemplateToogle()">
+          <span class="text">
+            <span>
+              <mat-icon svgIcon="user-login"></mat-icon> Add New
+            </span>
+          </span>
+          <span class="flip"></span>
+        </button>
+      </div>
+      <!-- Template Listing Area -->
+      <mat-tab-group>
+        <ng-container *ngFor="let template of allTemplates;">
+            <mat-tab label="{{template?.name}}"> 
+              <div class="table-list">
+                <div class="table-list-row" *ngFor="let programgoal of template?.programgoal">
+                  <div class="leftSideMenu" >
+                      <a>{{programgoal?.name}}</a>
+                  </div>
+                  <ng-container *ngIf="template?.programgoal?.length > 0">
+                  <div class="rightSideTable" >
+                    <ul>
+                      <li *ngFor="let goaltemplate of programgoal?.goaltemplate">
+                        <div class="rightSideTable-option">
+                          <span>{{goaltemplate?.name}}</span>
+                            <a *ngIf="goaltemplate?.added_by === 'coach'">
+                              <mat-icon style="cursor: pointer;" [matMenuTriggerFor]="editMenu" [matMenuTriggerData]="{templateId: goaltemplate?.id}">more_vert</mat-icon>
+                            </a>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </ng-container>
+                </div>
+                <ng-container *ngIf="template?.programtemplate?.length > 0">
+                  <div class="rightSideTable" >
+                    <ul>
+                      <li *ngFor="let programtemplate of template?.programtemplate">
+                        <div class="rightSideTable-option">
+                          <span>{{programtemplate?.name}}</span>
+                            <a *ngIf="programtemplate?.added_by === 'coach'">
+                              <mat-icon style="cursor: pointer;" [matMenuTriggerFor]="editMenu" [matMenuTriggerData]="{templateId: programtemplate?.id}">more_vert</mat-icon>
+                            </a>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </ng-container>     
+              </div>
+              <ng-container *ngIf="template?.programtemplate?.length === 0 && template?.programgoal?.length === 0">
+                No templates found!
+              </ng-container>
+            </mat-tab>
+          </ng-container>
+      </mat-tab-group>
+    
+      <!-- Edit or Delete Menu -->
+      <mat-menu #editMenu="matMenu" class="pxwidth-200">
+        <ng-template matMenuContent let-id="templateId">
+          <a mat-menu-item (click)="editTemplate(id)">Edit</a>
+          <a mat-menu-item (click)="deleteTemplate(id)">Delete</a>
+        </ng-template>
+      </mat-menu>
+    </div>
+
+    <!-- Add new Template Form -->
+    <div class="progr-temp-main-rt">
+      <ng-container *ngIf="addNewToogle">
+          <div class="outer-box progr-temp-form">
+                <div class="_header">
+                  <h3 *ngIf="!editExistingTemplate">Add new template</h3>
+                  <h3 *ngIf="editExistingTemplate">Edit template</h3>
+                </div>
+                <div class="program-list">
+                  <div class="box">
+                    <form [formGroup]="form">
+                      <div class="form-input">
+                        <label>Choose Template Type</label>
+                        <div class="has-addon">
+                          <input type="text" formControlName="template_type_id" [matAutocomplete]="templateTypeDropdown">
+                          <mat-icon *ngIf="!templateTypeDropdown?.isOpen">keyboard_arrow_down
+                          </mat-icon>
+                          <mat-icon *ngIf="templateTypeDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                        </div>
+                        <div class="alert error"
+                          *ngIf="form.controls.template_type_id.touched && form.controls.template_type_id.hasError('required')">
+                          Template Type is required.
+                        </div>
+                        <mat-autocomplete #templateTypeDropdown="matAutocomplete" (optionSelected)='templateTypeChange($event?.option?.id)'>
+                          <mat-option *ngFor="let item of templateTypes" [value]="item?.name" [id]="item?.id">{{item.name}}</mat-option>
+                        </mat-autocomplete>
+                      </div>
+                      <div class="form-input" *ngIf="individualSelected">
+                        <label>Choose Program Goal</label>
+                        <div class="has-addon">
+                          <input type="text" formControlName="program_goal_id" [matAutocomplete]="programGoalDropdown">
+                          <mat-icon *ngIf="!programGoalDropdown?.isOpen">keyboard_arrow_down
+                          </mat-icon>
+                          <mat-icon *ngIf="programGoalDropdown?.isOpen">keyboard_arrow_up</mat-icon>
+                        </div>
+                        <div class="alert error"
+                          *ngIf="form.controls.program_goal_id.touched && form.controls.program_goal_id.hasError('required')">
+                          Program Goal is required.
+                        </div>
+                        <mat-autocomplete #programGoalDropdown="matAutocomplete">
+                          <ng-container *ngFor="let item of templateTypes">
+                            <mat-option *ngFor="let programgoal of item?.programgoal" [value]="programgoal?.name" [id]="programgoal?.id">{{programgoal.name}}</mat-option>
+                          </ng-container>
+                        </mat-autocomplete>
+                      </div>
+                      <div class="form-input programName" >
+                        <label>Enter Program Name</label>
+                        <div class="has-addon">
+                          <input type="text" formControlName="program_name">
+                        </div>
+                        <div class="alert error"
+                          *ngIf="form.controls.program_name.touched && form.controls.program_name.hasError('required')">
+                          Program Name is required.
+                        </div>
+                      </div>
+                      <div class="button-group flex justify">
+                        <button *ngIf="!editExistingTemplate" class="btn-teal btn-flip" (click)="submitFormInit(form.value,'new')">
+                          <span class="text">
+                            <span>
+                            Save
+                            </span>
+                          </span>
+                          <span class="flip"></span>
+                        </button>
+                        <button *ngIf="editExistingTemplate" class="btn-teal btn-flip" (click)="submitFormInit(form.value,'update')">
+                          <span class="text">
+                            <span>
+                            Update
+                            </span>
+                          </span>
+                          <span class="flip"></span>
+                        </button>
+                        <button (click)="clearForm()" class="btn-gray btn-flip">
+                          <span class="text">
+                            <span>
+                              Clear
+                            </span>
+                          </span>
+                          <span class="flip black"></span>
+                        </button>
+                      </div>
+                    </form> 
+                  </div>
+                </div>
+          </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

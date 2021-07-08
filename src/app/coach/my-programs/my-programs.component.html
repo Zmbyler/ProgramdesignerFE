@@ -1,0 +1,35 @@
+<div class="card">
+        <div class="flex center middle  pagePadding">
+            <div class="container">
+                <div class="midcontactbody">
+                    <div class="__header text-center">
+                        <h2>My Programs</h2>
+                        <div class="contact-list" *ngIf="myPrograms?.length > 0 && myPrograms !== undefined">
+                            <table width="100%" border="1" cellspacing="0" cellpadding="0" style="margin-top: 20px;">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Name</th>
+                                    <!-- <th>Role</th> -->
+                                    <th>Action</th>
+                                </tr>
+                                <tr *ngFor="let program of myPrograms;let i=index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{program?.created_at | date: 'mediumDate'}}</td>
+                                    <td>{{program?.program_name}}</td>
+                                    <!-- <td>{{program?.role}}</td> -->
+                                    <td width="20%">
+                                        <i class="fa fa-pencil fa-2x" style="color: #4dc0bc; cursor: pointer;margin-right: 10px;" (click)="editProgram(program?.id,'edit')" aria-hidden="true"></i>&nbsp;
+                                        <i class="fa fa-trash fa-2x" style="color: red; cursor: pointer;" (click)="deleteProgram(program?.id)" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="color: red;margin-top: 20px;" *ngIf="myPrograms?.length === 0 || myPrograms === undefined">
+                            No Data Found!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

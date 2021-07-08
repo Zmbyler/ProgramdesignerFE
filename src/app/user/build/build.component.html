@@ -1,0 +1,559 @@
+<div class="bg" id="_maincontainer">
+
+  <div class="min-container" [ngSwitch]="switchCase">
+    <!-- Who is this for? -->
+    <ng-container *ngSwitchCase="0">
+      <div class="title text-center">
+        <h2>Start Building! <strong>Who is this for?</strong></h2>
+      </div>
+      <div class="flex center middle row">
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="forthis" id="forthis" (change)="selectOption(1, 'forthis', 'individual')">
+            <label for="forthis">
+              <div class="outer-box">
+                <div class="inner-box">
+                  <mat-icon style="max-width: 4.688em;" svgIcon="admin-login"></mat-icon>
+                </div>
+              </div>
+            </label>
+            <div class="box-text">Individual</div>
+          </div>
+        </div>
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="forthis" id="forthis1" (change)="selectOption(1, 'forthis', 'group')">
+            <label for="forthis1">
+              <div class="outer-box">
+                <div class="inner-box">
+                  <mat-icon style="max-width: 6.875em;" svgIcon="team"></mat-icon>
+                </div>
+              </div>
+            </label>
+            <div class="box-text">Group</div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- Athlete or General Population? (choose type) -->
+    <ng-container *ngSwitchCase="1">
+      <div class="title text-center">
+        <h2><strong>Athlete or General Population?</strong></h2>
+      </div>
+      <div class="flex center middle row">
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="Athlete" id="Athlete" (change)="selectOption(2.1, 'type', 'athlete')">
+            <label for="Athlete">
+              <div class="outer-box">
+                <div class="inner-box">
+                  <mat-icon style="max-width: 4.688em;" svgIcon="soccer"></mat-icon>
+                </div>
+              </div>
+            </label>
+            <div class="box-text">Athlete</div>
+          </div>
+        </div>
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="Athlete" id="Athlete1" (change)="selectOption(2.2, 'type', 'gen-pop')">
+            <label for="Athlete1">
+              <div class="outer-box">
+                <div class="inner-box">
+                  <mat-icon style="max-width: 6.875em;" svgIcon="admin-login"></mat-icon>
+                </div>
+              </div>
+            </label>
+            <div class="box-text">Gen Pop</div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+
+    <!-- What Type of Athlete? (if athlete)-->
+    <ng-container *ngSwitchCase="2.1">
+      <div class="title text-center">
+        <h2><strong>What Type of Athlete?</strong></h2>
+      </div>
+      <div class="flex center middle row">
+        <div class="box radio-box" *ngFor="let sports of sportList; let i = index;">
+          <div class="column">
+            <input type="radio" name="athlete_type" id="{{sports?.name}}"
+              (change)="selectOption(3.0.1, 'athlete_type', sports?.id)">
+            <label for="{{sports?.name}}">
+              <div class="outer-box">
+                <div class="inner-box">
+                  <mat-icon style="max-width: 4.688em;" svgIcon="{{sports?.icon}}"></mat-icon>
+                </div>
+              </div>
+            </label>
+            <div class="box-text">{{sports?.name}}</div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- What is the Program Goal? (if gen-pop) -->
+    <ng-container *ngSwitchCase="2.2">
+      <div class="title text-center">
+        <h2><strong>What is the Program Goal?</strong></h2>
+      </div>
+      <div class="flex center middle row">
+        <div class="box radio-box" *ngFor="let programGoal of programGoalList;let i = index;">
+          <div class="column">
+            <input type="radio" name="{{programGoal?.name}}" id="{{programGoal?.name}}{{i}}"
+              (change)="selectOption(3.2, 'program_goal', programGoal?.id)">
+            <label for="{{programGoal?.name}}{{i}}">
+              <div class="outer-box">
+                <div class="inner-box">
+                  <mat-icon style="max-width: 9.625em;" svgIcon="{{programGoal?.icon}}"></mat-icon>
+                </div>
+              </div>
+            </label>
+            <div class="box-text">{{programGoal?.slug === 'weight_loss' ? 'Conditioning' : programGoal?.name}}</div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- Speed Based or Strength Based ? (if athlete)-->
+    <ng-container *ngSwitchCase="3.0.1">
+      <div class="title text-center">
+        <h2><strong>Speed Based or Strength Based ?</strong></h2>
+      </div>
+      <div class="flex center middle row">
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="what_based" id="Speed-Based"
+              (change)="selectOption(3.1, 'what_based', 'Kangaroo')">
+            <label for="Speed-Based">
+              <div class="outer-box">
+                <div class="inner-box">
+                  <mat-icon style="max-width: 9.625em;" svgIcon="stadium"></mat-icon>
+                </div>
+              </div>
+            </label>
+            <div class="box-text">Speed Based</div>
+          </div>
+        </div>
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="what_based" id="Strength-Based"
+              (change)="selectOption(3.1, 'what_based', 'Gorilla')">
+            <label for="Strength-Based">
+              <div class="outer-box">
+                <div class="inner-box">
+                  <mat-icon style="max-width: 6.875em;" svgIcon="stadium"></mat-icon>
+                </div>
+              </div>
+            </label>
+            <div class="box-text">Strength Based</div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- What Season? (if athlete)-->
+    <ng-container *ngSwitchCase="3.1">
+      <div class="title text-center">
+        <h2><strong>What Season?</strong></h2>
+      </div>
+      <div class="flex center middle row">
+        <div class="box radio-box" *ngFor="let season of seasonList; let i = index;">
+          <div class="column">
+            <input type="radio" name="what_season" id="{{season?.name}}"
+              (change)="selectOption(4.1, 'what_season', season?.id)">
+            <label for="{{season?.name}}">
+              <div class="outer-box">
+                <div class="inner-box">
+                  <mat-icon style="max-width: 9.625em;" svgIcon="{{season?.icon}}"></mat-icon>
+                </div>
+              </div>
+            </label>
+            <div class="box-text">{{season?.name}}</div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- Training Block? (if gen-pop)-->
+    <ng-container *ngSwitchCase="3.2">
+      <div class="title text-center">
+        <h2><strong>Training Block?</strong></h2>
+      </div>
+      <div class="flex center middle row">
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="traiining_block" id="Accumulation"
+              (change)="selectOption(5, 'traiining_block', 'Accumulation')">
+            <label for="Accumulation">
+              <div class="outer-box">
+                <div class="inner-box">
+                  <mat-icon style="max-width: 9.625em;" svgIcon="healthy"></mat-icon>
+                </div>
+              </div>
+            </label>
+            <div class="box-text">Accumulation Block</div>
+          </div>
+        </div>
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="traiining_block" id="Intensification"
+              (change)="selectOption(5, 'traiining_block', 'Intensification')">
+            <label for="Intensification">
+              <div class="outer-box">
+                <div class="inner-box">
+                  <mat-icon style="max-width: 6.875em;" svgIcon="strength"></mat-icon>
+                </div>
+              </div>
+            </label>
+            <div class="box-text">Intensification Block</div>
+          </div>
+        </div>
+
+      </div>
+    </ng-container>
+
+     <!-- Training Block? (if athlete)-->
+    <ng-container *ngSwitchCase="4.1">
+      <div class="title text-center">
+        <h2><strong>Training Block?</strong></h2>
+      </div>
+      <div class="flex center middle row">
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="traiining_block1" id="Accumulation1"
+              (change)="selectOption(5, 'traiining_block', 'Accumulation')">
+            <label for="Accumulation1">
+              <div class="outer-box">
+                <div class="inner-box">
+                  <mat-icon style="max-width: 9.625em;" svgIcon="healthy"></mat-icon>
+                </div>
+              </div>
+            </label>
+            <div class="box-text">Accumulation Block</div>
+          </div>
+        </div>
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="traiining_block1" id="Intensification1"
+              (change)="selectOption(5, 'traiining_block', 'Intensification')">
+            <label for="Intensification1">
+              <div class="outer-box">
+                <div class="inner-box">
+                  <mat-icon style="max-width: 6.875em;" svgIcon="strength"></mat-icon>
+                </div>
+              </div>
+            </label>
+            <div class="box-text">Intensification Block</div>
+          </div>
+        </div>
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="traiining_block1" id="Realization"
+              (change)="selectOption(5, 'traiining_block', 'Realization')">
+            <label for="Realization">
+              <div class="outer-box">
+                <div class="inner-box">
+                  <mat-icon style="max-width: 6.875em;" svgIcon="speed"></mat-icon>
+                </div>
+              </div>
+            </label>
+            <div class="box-text">Realization Block</div>
+          </div>
+        </div>
+
+      </div>
+    </ng-container>
+
+    <!-- Training Age? -->
+    <ng-container *ngSwitchCase="5">
+      <div class="title text-center">
+        <h2><strong>Training Age?</strong></h2>
+      </div>
+      <div class="flex center middle row">
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="traiining_age" id="age0" (change)="selectOption(6, 'traiining_age', 0)">
+            <label for="age0">
+              <div class="outer-box age-box">
+                <div class="inner-box">
+                  <h2>0</h2>
+                  <!-- <mat-icon style="max-width: 9.625em;" svgIcon="healthy"></mat-icon> -->
+                </div>
+              </div>
+            </label>
+            <!-- <div class="box-text">Accumulation Block</div> -->
+          </div>
+        </div>
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="traiining_age" id="age1" (change)="selectOption(6, 'traiining_age', 1)">
+            <label for="age1">
+              <div class="outer-box age-box">
+                <div class="inner-box">
+                  <h2>1</h2>
+                  <!-- <mat-icon style="max-width: 6.875em;" svgIcon="strength"></mat-icon> -->
+                </div>
+              </div>
+            </label>
+            <!-- <div class="box-text">Intensification Block</div> -->
+          </div>
+        </div>
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="traiining_age" id="age2" (change)="selectOption(6, 'traiining_age', 2)">
+            <label for="age2">
+              <div class="outer-box age-box">
+                <div class="inner-box">
+                  <h2>2</h2>
+                  <!-- <mat-icon style="max-width: 6.875em;" svgIcon="speed"></mat-icon> -->
+                </div>
+              </div>
+            </label>
+            <!-- <div class="box-text">Realization Block</div> -->
+          </div>
+        </div>
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="traiining_age" id="age3" (change)="selectOption(6, 'traiining_age', 3)">
+            <label for="age3">
+              <div class="outer-box age-box">
+                <div class="inner-box">
+                  <h2>3</h2>
+                  <!-- <mat-icon style="max-width: 6.875em;" svgIcon="speed"></mat-icon> -->
+                </div>
+              </div>
+            </label>
+            <!-- <div class="box-text">Realization Block</div> -->
+          </div>
+        </div>
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="traiining_age" id="age4" (change)="selectOption(6, 'traiining_age', 4)">
+            <label for="age4">
+              <div class="outer-box age-box">
+                <div class="inner-box">
+                  <h2>4</h2>
+                  <!-- <mat-icon style="max-width: 6.875em;" svgIcon="speed"></mat-icon> -->
+                </div>
+              </div>
+            </label>
+            <!-- <div class="box-text">Realization Block</div> -->
+          </div>
+        </div>
+
+      </div>
+    </ng-container>
+
+    <!-- ASSESSMENT RESULT -->
+    <ng-container *ngSwitchCase="6">
+      <div class="title text-center assesment-title">
+        <h2><strong>ASSESSMENT RESULT</strong></h2>
+      </div>
+      <form [formGroup]="assessmentResultFrom" >
+        <div class="flex center middle row">
+          <div class="box inline-radio-box" *ngFor="let assesment of assesmentResult;let i = index;">
+            <div class="outer-box full-width">
+              <div class="inner-box">
+                <div class="flex full-width">
+                  <div class="width-50">
+                    <p>{{assesment?.name}}</p>
+                  </div>
+                  <div class="width-50">
+                    <div class="flex row">
+                      <div class="column">
+                        <input type="radio" id="{{assesment.slug}}" name="{{assesment.slug}}"  value="Pass" formControlName="{{assesment.slug}}"
+                          (change)="selectOption(6, assesment.slug, assesment.assessment_option_one,assesment)">
+                        <label for="{{assesment.slug}}">
+                          <mat-icon class="tick" svgIcon="tick"></mat-icon> {{assesment?.assessment_option_one}}
+                        </label>
+                      </div>
+                      <div class="column">
+                        <input type="radio" id="{{assesment.slug}}{{i}}" name="{{assesment.slug}}" value="Fail" formControlName="{{assesment.slug}}"
+                          (change)="selectOption(6, assesment.slug, assesment.assessment_option_two, assesment)">
+                        <label for="{{assesment.slug}}{{i}}">
+                          <mat-icon class="tick" svgIcon="tick"></mat-icon> {{assesment?.assessment_option_two}}
+                        </label>
+                      </div>
+                    </div>
+                    <div class="alert error" style="margin-top: 10px;" *ngIf="isSubmitted && assessmentResultFrom.get(assesment.slug).errors?.required">
+                      {{assesment?.name}} is required.
+                   </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+        <div class="text-center button">
+          <button class="btn-white btn-flip" (click)="assesment()">
+            <span class="text">
+              <span>
+                SUBMIT
+              </span>
+            </span>
+            <span class="flip"></span>
+          </button>
+        </div>
+      </form>
+    </ng-container>
+
+    <!--Available Program Templates  (if gen-pop)-->
+    <ng-container *ngSwitchCase="7">
+      <div class="title text-center">
+        <h2><strong>Available Program Templates</strong></h2>
+        <p>
+          Based on your selections, these templates are available. Select one to start building
+          your program.
+        </p>
+      </div>
+      <div class="flex center middle row">
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="traiining_template" id="Individualized" (change)="selectOption(8, 'template', 'Individual Templates')">
+            <label for="Individualized">
+              <div class="outer-box template">
+                <div class="inner-box">
+                  <h3>Individualized <br> Template</h3>
+                  <!-- <mat-icon style="max-width: 6.875em;" svgIcon="speed"></mat-icon> -->
+                </div>
+              </div>
+            </label>
+            <!-- <div class="box-text">Realization Block</div> -->
+          </div>
+        </div>
+
+        <div class="box radio-box">
+          <div class="column">
+            <input type="radio" name="traiining_template" id="SGPT" (change)="selectOption(8, 'template', 'SGPT Templates')">
+            <label for="SGPT">
+              <div class="outer-box template">
+                <div class="inner-box">
+                  <h3>SGPT <br> Day Template</h3>
+                  <!-- <mat-icon style="max-width: 6.875em;" svgIcon="speed"></mat-icon> -->
+                </div>
+              </div>
+            </label>
+            <!-- <div class="box-text">Realization Block</div> -->
+          </div>
+        </div>
+
+        
+
+      </div>
+    </ng-container>
+
+    <!--  Program is shown; available for edits. -->
+    <ng-container *ngSwitchCase="8">
+      <div class="title text-center">
+        <h2><strong>Here You Go!</strong></h2>
+      </div>
+      <div class="flex center middle row">
+
+        <div class="outer-box here-you-go">
+          <div class="inner-box">
+            <h3>Program is shown; <br> available for edits.</h3>
+            <!-- <mat-icon style="max-width: 6.875em;" svgIcon="speed"></mat-icon> -->
+          </div>
+        </div>
+
+      </div>
+    </ng-container>
+
+    <!-- app-results -->
+    <ng-container *ngSwitchCase="9">
+      <app-results (selctOption)="resultsChange($event)" (submitForm)="selectOption(10, 'result', $event)">
+      </app-results>
+    </ng-container>
+
+    <!-- if Generate pdf selected -->
+    <ng-container *ngSwitchCase="10">
+      <div class="title text-center">
+        <h2><strong>Send it!</strong></h2>
+      </div>
+      <div class="flex center middle row">
+
+        <div class="outer-box sendit">
+          <div class="inner-box">
+            <form [formGroup]="form">
+              <div class="form-input">
+                <label>Name The Program</label>
+                <input type="text" formControlName="program_name" required readonly>
+                <div class="alert error"
+                  *ngIf="form.controls.program_name.touched && form.controls.program_name.hasError('required')">
+                  Enter the program name
+                </div>
+              </div>
+              <div class="form-input">
+                <label>
+                  <mat-icon svgIcon="tick" style="max-width: 14px;"></mat-icon> Assign To Client Or Group
+                </label>
+                <mat-chip-list #chipList aria-label="Email Address">
+                  <mat-chip *ngFor="let item of assignTo" [selectable]="selectable" [removable]="removable" (removed)="removeMemberForEmail(item)">
+                    {{item}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+                  <input formControlName="assign_to"
+                         [matChipInputFor]="chipList"
+                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                         [matChipInputAddOnBlur]="addOnBlur"
+                         (matChipInputTokenEnd)="addMemberForEmail($event)">
+                <div class="alert error"
+                  *ngIf="form.controls.assign_to.touched && form.controls.assign_to.hasError('pattern')">
+                  Enter Valid Email Id.
+                </div>
+              </div>
+              <div class="form-input">
+                <label>Notes</label>
+                <textarea formControlName="notes"></textarea>
+                <div class="alert error"
+                  *ngIf="form.controls.notes.touched && form.controls.notes.hasError('required')">
+                  Notes is required
+                </div>
+              </div>
+              <div class="form-input text-center">
+                <button class="btn-white btn-flip" (click)="submitDetailsForMail(form.value)">
+                  <span class="text">
+                    <span>
+                      send!
+                    </span>
+                  </span>
+                  <span class="flip black"></span>
+                </button>
+                <button class="btn-gray btn-flip" (click)="location.back();">
+                  <span class="text">
+                    <span>
+                      save for later
+                    </span>
+                  </span>
+                  <span class="flip black"></span>
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </ng-container>
+  </div>
+</div>

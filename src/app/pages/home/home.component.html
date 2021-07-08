@@ -1,0 +1,223 @@
+<!--  <div class="flex">
+   <h1 class="full-width">MODAL EXAMPLE</h1>
+   <button (click)="openModal('1')" mat-raised-button color="accent">Open Modal 1</button>
+   <span style="width: 50px; display: inline-block;"></span>
+   <button (click)="openModal('2')" mat-raised-button color="primary">
+     Open Modal 2
+   </button>
+   <span style="width: 50px; display: inline-block;"></span>
+   <button (click)="getEmpl()" mat-raised-button color="warn">
+     <app-loader class="small" [isButton]="true" buttonText="Call A API"></app-loader>
+   </button>
+
+ </div>
+
+ <br>
+ <br>
+ <div class="flex">
+   <h1 class="full-width">USES OF DYNAMIC CLASS FOR DYNAMIC WIDTH</h1>
+   <div class="width-10"> width 10% </div>
+   <div class="width-20"> width 20% </div>
+   <div class="width-30"> width 30% </div>
+   <div class="pxwidth-400"> width 400px </div>
+ </div>
+ -->
+
+ <app-banner [data]="bannerData"></app-banner>
+ <div class="about">
+   <div class="container about-bg">
+     <div class="flex">
+       <div class="width-50 flex end ">
+         <img src="./assets/images/laddy.png" alt="">
+       </div>
+       <div class="width-50 flex middle">
+         <div> 
+              <div class="title">
+                <!-- <h1>About <span>us</span></h1> -->
+                <h1 *ngIf="homeData?.cms[1]?.title" [innerHTML]="checkSpace(homeData?.cms[1]?.title)"></h1>
+              </div>
+              <div class="content">
+                <!-- <p>
+                  {{homeData?.cms[1]?.long_description}}
+                </p> -->
+                <p [innerHtml]="homeData?.cms[1]?.short_description"></p>
+              </div>
+              <button class="btn-white btn-flip">
+                  <span class="text">
+                  <span [routerLink]="['/about-us']" routerLinkActive="active"> read more </span>
+                  <!-- <span><a [routerLink]="['/about-us']" routerLinkActive="active"> read more </a></span> -->
+                </span> 
+                <span class="flip"></span>
+              </button>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="training">
+   <div class="container">
+     <div class="title text-center">
+       <h2>Training</h2>
+     </div>
+     <div class="flex row">
+       <!-- <div class="column width-50">
+        <div class="flex box">
+          <div class="width-40 flex">
+            <div class="image">
+             <img src="./assets/images/training-_img.jpg" alt="">
+           </div>
+          </div>
+          <div class="column width-60">
+         <div class="content">
+          <h3>
+            BEAST UNIVERSITY //
+            <span>Youth Training</span>
+          </h3>
+          <p>
+            Looking to get recruited at your favorite college, or just trying to excel in your middle school sport? For athletes ages 6 to 18, BEAST University could be the best solution for you. Classes are separated by age bracket and programs and individualized to your needs.
+          </p>
+           <button class="btn-teal btn-flip">
+              <span class="text">
+              <span> read more </span>
+            </span> 
+            <span class="flip"></span>
+          </button>
+         </div>
+       </div>
+        </div>
+         
+       </div>
+
+       <div class="column width-50">
+        <div class="flex box">
+          <div class="width-40 flex">
+            <div class="image">
+             <img src="./assets/images/training-_img2.jpg" alt="">
+           </div>
+          </div>
+          <div class="column width-60">
+         <div class="content">
+          <h3>
+            BEST FIT CAMP //
+            <span>Adult Training</span>
+          </h3>
+          <p>
+            For adults of all ages, Coach Byler starts all program-designs off with a thorough assessment of your movement patterns, nutrition habits and more. This interval training, where we pay very close attention to detail and form, could be for you!
+          </p>
+           <button class="btn-teal btn-flip">
+              <span class="text">
+              <span> read more </span>
+            </span> 
+            <span class="flip"></span>
+          </button>
+         </div>
+       </div>
+        </div>
+         
+       </div> -->
+
+       <div class="column width-50" *ngFor="let training of homeData?.training">
+        <div class="flex box">
+          <div class="width-40 flex">
+            <div class="image">
+             <img src="{{trainingImageUrl}}{{training?.image}}" alt="">
+           </div>
+          </div>
+          <div class="column width-60">
+         <div class="content">
+          <h3 style="width: 180px;">
+            <!-- BEAST UNIVERSITY //
+            <span>Youth Training</span> -->
+            {{training?.title}}
+          </h3>
+          <!-- <p [innerHtml]="training?.short_description"></p> -->
+          <p>{{convertDesc(training?.short_description)}}</p>
+           <button class="btn-teal btn-flip">
+              <span class="text">
+              <span> read more </span>
+            </span> 
+            <span class="flip"></span>
+          </button>
+         </div>
+       </div>
+        </div>
+       </div>
+       
+     </div>
+   </div>
+ </div>
+
+ <div class="blog" *ngIf="blogDatas">
+   <div class="container">
+     <div class="flex middle">
+       <div class="width-40 flex middle wrap">
+       <div class="title">
+         <h1>
+           Our <span>Blog</span>
+         </h1>
+         <div class="">
+         <button class="btn-white btn-flip">
+              <span class="text">
+              <span> read more </span>
+            </span> 
+            <span class="flip teal"></span>
+          </button>
+          </div>
+       </div>
+     </div>
+     <div class="width-60">
+       <div class="flex blog-list">
+         <div class="column width-50" *ngFor="let data of blogDatas">
+           <div class="content">
+             <h3>{{data?.title?.rendered}}</h3>
+             <div class="info flex"> 
+                <span>
+                  <mat-icon svgIcon="calendar"></mat-icon>
+                    {{data?.date | date: 'MMMM d, yyyy'}}
+                </span>
+                <span>
+                  <mat-icon class="comment-icon" svgIcon="comment"></mat-icon>
+                    Leave a Comment
+                </span>
+             </div>
+             <!-- <p>
+               One of the most frequent questions we get asked here at BEST is “what do YOU eat?” (as if the way I (Zack) eat makes a difference for the person I am coaching). There are some people that just want the fish given to them…
+             </p> -->
+             <div [innerHTML]="data?.excerpt?.rendered"></div>
+             <button class="btn-white btn-flip" *ngIf="data?.content?.rendered.split(' ').length > 45">
+              <span class="text">
+              <span> read more </span>
+            </span> 
+            <span class="flip black"></span>
+          </button>
+           </div>
+         </div>
+          <!-- <div class="column width-50">
+           <div class="content">
+             <h3>The real reason you are “Too busy”</h3>
+             <div class="info flex"> 
+                <span>
+                  <mat-icon svgIcon="calendar"></mat-icon>
+                    November 26, 2019
+                </span>
+                <span>
+                  <mat-icon class="comment-icon" svgIcon="comment"></mat-icon>
+                    Leave a Comment
+                </span>
+             </div>
+             <p>
+               I see the subtext. I see between the lines in emails, and I catch that underlying tone in conversations. I know some people reading this are setting goals and being super consistent with your workouts and nutrition. You're basically pros...
+             </p>
+             <button class="btn-white btn-flip">
+              <span class="text">
+              <span> read more </span>
+            </span> 
+            <span class="flip black"></span>
+          </button>
+           </div>
+         </div> -->
+       </div>
+     </div>
+     </div>
+   </div>
+ </div>
